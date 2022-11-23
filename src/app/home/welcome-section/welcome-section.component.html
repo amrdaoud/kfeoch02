@@ -1,0 +1,105 @@
+<div class="welcome-section">
+<div class="container">
+  <div class="welcome-text" >
+    <h2 data-aos="fade-up" data-aos-duration="1500" data-aos-once="true">
+      <span translate>Welcome to the </span><br>
+      <span class="accent-color" translate>Federation of Kuwaiti Engineering Offices and Consulting Houses</span>
+    </h2>
+    <p data-aos="fade-right" data-aos-duration="2000" data-aos-once="true" *ngIf="!(isHandset | async)">
+      <span translate>Quickly find your certified guide in all engineering fields and services..</span>
+    </p>
+  </div>
+  <mat-grid-list rowHeight="300" [cols]="(isHandset | async) ? 1 : 3" class="who-we-are-section" gutterSize="50">
+    <mat-grid-tile class="who-we-are-card" data-aos="fade-up" data-aos-once="true" data-aos-delay="200">
+      <div class="card-icon">
+        <mat-icon>done_all</mat-icon>
+      </div>
+      <div class="card-text">
+        <h2 translate>Who are we?</h2>
+        <p translate>
+          The Federation of Kuwaiti Engineering Offices and Consulting Houses was established on Sunday 23/4/2006 AD by virtue of Law No. 38 of 1964, an organized body under the name (Federation of Kuwaiti Engineering Offices and Consulting Houses) located in Kuwait City
+        </p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="who-we-are-card second" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
+      <div class="card-icon">
+        <mat-icon>groups</mat-icon>
+      </div>
+      <div class="card-text">
+        <h2 translate>How can we help you?</h2>
+        <p translate>
+          We are happy to communicate with you on all means of communication and strive to fulfill member requests and we are proud to serve our valued visitors
+        </p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="2">
+      <img src="assets/images/proud-worker.png" >
+    </mat-grid-tile>
+    <mat-grid-tile class="who-we-are-card" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
+      <div class="card-icon">
+        <mat-icon>support_agent</mat-icon>
+      </div>
+      <div class="card-text">
+        <h2 translate>Why us?</h2>
+        <p translate>
+          The Federation of Kuwaiti Engineering Offices and Consulting Houses seeks to take care of the interests of members, defend their rights, represent engineering offices and advisory houses in front of official bodies, companies and Arab and foreign bodies, and propose rules and regulations that lead to raising the level of the engineering profession, engineering competitions, contributions and review of standard specifications in cooperation with the competent bodies
+        </p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="who-we-are-card second" data-aos="fade-up" data-aos-delay="500" data-aos-once="true">
+      <div class="card-icon">
+        <mat-icon>phone</mat-icon>
+      </div>
+      <div class="card-text">
+        <h2 translate>How to contact us?</h2>
+        <p translate>
+          You can contact us via the website, e-mail, phone, or visit us at the headquarters
+        </p>
+      </div>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+</div>
+<section class="our-services-section">
+  <mat-grid-list rowHeight="300" [cols]="(isHandset | async) ? 1 : 3" gutterSize="0">
+    <mat-grid-tile class="dark-bg">
+      <div class="icon-holder accent-color">
+        <!-- <mat-icon class="material-icons-outlined accent-color">architecture</mat-icon> -->
+        <span class="material-symbols-outlined">
+          handyman
+        </span>
+      </div>
+      <h2 class="title-holder accent-color" translate>
+        Our Services
+      </h2>
+      <div class="text-holder">
+        <p></p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="accent-bg">
+      <div class="icon-holder">
+        <mat-icon class="material-symbols-outlined dark-color">school</mat-icon>
+      </div>
+      <h2 class="title-holder dark-color" translate>
+        Latest Courses
+      </h2>
+      <div class="text-holder">
+        <p></p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="dark-bg">
+      <div class="icon-holder">
+        <mat-icon class="material-symbols-outlined accent-color">account_box</mat-icon>
+      </div>
+      <h2 class="title-holder accent-color" translate>
+        Member Registration
+      </h2>
+      <div class="text-holder">
+        <p></p>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>
+
+

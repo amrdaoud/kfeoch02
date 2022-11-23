@@ -1,0 +1,43 @@
+<div class="carousel-container">
+
+  <img *ngFor="let item of items; let i = index"
+  [src]="item.ImageSrc"
+  [alt]="item.ImageAlt"
+  [ngClass]="{'item-active': selectedIndex === i}"
+  class="fade">
+
+  <div *ngIf="indicators" class="carousel-dot-container">
+    <span *ngFor="let dot of items; let i = index"
+    class="dot" [ngClass]="{'active': selectedIndex === i}"
+    (click)="selectedIndex = i"></span>
+  </div>
+  <div *ngIf="controls" class="btn-carousel btn-prev">
+    <button mat-mini-fab class="icon-carousel" (click)="language === 'en' ? goBack() : goNext()">
+      <mat-icon inline>
+        arrow_back
+      </mat-icon>
+    </button>
+  </div>
+  <div *ngIf="controls" class="btn-carousel btn-next" >
+    <button mat-mini-fab class="icon-carousel" (click)="language === 'en' ? goNext() : goBack()">
+      <mat-icon inline>
+        arrow_forward
+      </mat-icon>
+    </button>
+  </div>
+  <div class="overlay" *ngIf="overlay"></div>
+  <div *ngFor="let item of items; let i = index"
+      [ngClass]="{'item-active': selectedIndex === i}"
+      class="title fly-in-left">
+      <p class="main">
+        {{item.Title}}
+      </p>
+      <p class="sub">
+        {{item.SubTitle}}
+      </p>
+      <p>
+        <button mat-raised-button color="accent">{{item.btnText}}</button>
+      </p>
+
+  </div>
+</div>

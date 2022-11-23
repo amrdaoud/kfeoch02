@@ -1,0 +1,269 @@
+
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
+  <h1 class="mat-h1">
+    Information
+  </h1>
+  <h3 class="mat-h3">
+    Main Information
+  </h3>
+  <p>
+    These information will be displayed to website guests
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-select
+          controlName="TypeId"
+          [formGroup]="frm"
+          [label]="'Office Type' | translate"
+          [placeHolder]="'Select Type' | translate"
+          [options]="(officeTypes | async)!"
+          [isLoading]="(officeTypesLoading | async)!"
+          [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+          optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="LicenseId" [isAsync]="true" [formGroup]="frm" [label]="'License Number' | translate" type="number"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="NameEnglish" [isAsync]="true" [formGroup]="frm" [label]="'English Name' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="NameArabic" [isAsync]="true" [formGroup]="frm" [label]="'Arabic Name' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3">
+    Logo
+  </h3>
+  <p>
+    Update your Logo
+  </p>
+  <div class="logo-options-container">
+    <mat-grid-list rowHeight="60" cols="3">
+      <mat-grid-tile>
+        <div class="office-home-logo" [ngStyle]="{'background-image': 'url('+office.LogoUrl+')'}"></div>
+          <!-- <img class="avatar"  [src]="office.LogoUrl" alt="Avatar" onerror="this.onerror=null; this.src='assets/images/default_avatar.png';"> -->
+      </mat-grid-tile>
+      <mat-grid-tile>
+          <button mat-button color="primary" type="button" (click)="input.click()">Change</button>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-button type="button">Remove</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <input id="file-upload" #input [disabled]="(isLoading | async)"
+    type="file" name="fileUpload" accept=".png,.jpg,.jpeg" (change)="uploadLogo($event)"/>
+  </div>
+
+  <h3 class="mat-h3">
+    Account Dates
+  </h3>
+  <p>
+    These information will be displayed to website guests
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>Registration Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="RegistrationDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="(isHandset | async)" #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>Establishment Date</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="EstablishmentDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="(isHandset | async)" #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>License Expiry Date</mat-label>
+          <input matInput [matDatepicker]="picker3" formControlName="LicenseEndDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="(isHandset | async)" #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3">
+    Office Entities
+  </h3>
+  <p>
+    These information will be displayed to website guests
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <app-select
+            controlName="EntityId"
+            [formGroup]="frm"
+            [label]="'Office Entity' | translate"
+            [placeHolder]="'Select Entity' | translate"
+            [options]="(officeEntities | async)!"
+            [isLoading]="(officeEntitiesLoading | async)!"
+            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <app-select
+            controlName="LegalEntityId"
+            [formGroup]="frm"
+            [label]="'Office Legal Entity' | translate"
+            [placeHolder]="'Select Legal Entity' | translate"
+            [options]="(officeLegalEntities | async)!"
+            [isLoading]="(officeLegalEntitiesLoading | async)!"
+            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3">
+    Contact Information
+  </h3>
+  <p>
+    These information will be displayed to website guests
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 2">
+      <div class="form-field-container">
+        <app-input controlName="Email" [isAsync]="true" [formGroup]="frm" [label]="'Email Address' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="FaxNumber" [formGroup]="frm" [label]="'Fax Number' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="MailBox" [formGroup]="frm" [label]="'Maibox' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="PostalCode" [formGroup]="frm" [label]="'Postal Code' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3">
+    Location & Address
+  </h3>
+  <p>
+    These information will be displayed to website guests
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <app-select
+            controlName="CountryId"
+            [formGroup]="frm"
+            [label]="'Country' | translate"
+            [placeHolder]="'Select Country' | translate"
+            [options]="(countries | async)!"
+            [isLoading]="(countriesLoading | async)!"
+            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <app-select
+            controlName="GovernorateId"
+            [formGroup]="frm"
+            [label]="'Governorate' | translate"
+            [placeHolder]="'Select Governorate' | translate"
+            [options]="(governorates | async)!"
+            [isLoading]="(governoratesLoading | async)!"
+            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <app-select
+            controlName="AreaId"
+            [formGroup]="frm"
+            [label]="'Area' | translate"
+            [placeHolder]="'Select Area' | translate"
+            [options]="(areas | async)!"
+            [isLoading]="(areasLoading | async)!"
+            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 3" rowspan="2">
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="Address"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <h3 class="mat-h3">
+    Policy & Privacy
+  </h3>
+  <p>
+    These information will be displayed to website guests
+  </p>
+  <div class="form-field-container">
+    <mat-checkbox formControlName="AgreeToTerms">I agree to the terms and conditions</mat-checkbox>
+  </div>
+  <div class="form-field-container">
+    <mat-checkbox formControlName="ShowInHome">Show office in home</mat-checkbox>
+  </div>
+  <div class="form-field-container">
+    <mat-checkbox formControlName="IsVerified">Verified</mat-checkbox>
+  </div>
+  <div class="form-field-container">
+    <mat-checkbox formControlName="IsActive">Active</mat-checkbox>
+  </div>
+  <div>
+    <mat-grid-list rowHeight="60" cols="2" class="actions-container">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
+            <span>Save Changes</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">Reset</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+</form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
+</div>

@@ -1,0 +1,28 @@
+
+<mat-card class="news-card">
+  <mat-grid-list rowHeight="40" cols="5">
+    <mat-grid-tile colspan="2" rowspan="8">
+      <img [src]="newsImgUrl">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3">
+      <div class="news-text">
+      <div class="news-date">{{newsDate}} | {{newsCategory}}</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3">
+      <div class="news-text">
+      <div class="news-title">{{newsHeadline}}</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3" rowspan="5">
+      <div class="news-text">
+        {{(isHandset | async) ? newsText.substring(1,200) : newsText.substring(1,500)}}...
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3">
+        <button mat-button color="primary">
+          <span translate>Read More..</span>
+        </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>

@@ -1,0 +1,160 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+        <button mat-list-item>
+          <span translate>MAIN</span>
+        </button>
+        <button mat-list-item
+        [matMenuTriggerFor]="whoWeAre">
+        <span translate>WHO WE ARE</span><mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-list-item [matMenuTriggerFor]="engOffices">
+          <span translate>ENGINEERING OFFICES</span><mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-list-item
+        [matMenuTriggerFor]="media">
+        <span translate>MEDIA</span><mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-list-item>
+          <span translate>COURSES & SEMINARS</span>
+        </button>
+        <button mat-list-item>
+          <span translate>CONTACT US</span>
+        </button>
+   </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="info-header" [ngClass]="(isHandset$ | async) ? 'no-padding' : ''" color="primary" >
+      <img src="/assets/images/logos/dark/logo-horizontal-white.png" class="logo">
+      <span class="full-spacer"></span>
+      <div class="row" *ngIf="!(isHandset$ | async)">
+        <div class="col">
+          <div class="top-bar-item">
+            <div class="top-bar-icon">
+              <i class="flaticon-calendar"></i>
+            </div>
+            <div class="top-bar-text">
+              <h3 translate>Opening Hour</h3>
+              <p translate>Sun - Thu, 9:00 - 13:00 | 16:00 - 20:00</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="top-bar-item">
+            <div class="top-bar-icon">
+              <i class="flaticon-call"></i>
+            </div>
+            <div class="top-bar-text">
+              <h3 translate>Call Us</h3>
+              <p style="direction: ltr;">+965 66923894</p>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <span class="full-spacer"></span>
+    <button *ngIf="(currentLanguage | async) === 'en'" mat-stroked-button (click)="changeLanguage('ar')"style="font-family: 'Droid Arabic Kufi';">العربية</button>
+    <button *ngIf="(currentLanguage | async) === 'ar'" mat-stroked-button (click)="changeLanguage('en')"style="font-family: 'Roboto';">English</button>
+    </mat-toolbar>
+    <div class="nav-bar-container"
+    [ngClass]="(stretchMenu | async) || (isHandset$ | async)  ? 'full-width' :  'padded-width'"
+    >
+      <mat-toolbar class="nav-bar">
+        <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div *ngIf="!(isHandset$ | async)" class="nav-menu-btns">
+        <button mat-button>
+          <span translate>MAIN</span>
+        </button>
+        <button mat-button
+        [matMenuTriggerFor]="whoWeAre">
+        <span translate>WHO WE ARE</span><mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-button [matMenuTriggerFor]="engOffices">
+          <span translate>ENGINEERING OFFICES</span><mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-button
+        [matMenuTriggerFor]="media">
+        <span translate>MEDIA</span><mat-icon>expand_more</mat-icon>
+        </button>
+        <button mat-button>
+          <span translate>COURSES & SEMINARS</span>
+        </button>
+        <button mat-button>
+          <span translate>CONTACT US</span>
+        </button>
+      </div>
+      <span class="full-spacer"></span>
+      <button *ngIf="memberName; else login" mat-stroked-button color="primary" [routerLink]="'/office/home/information/'" >
+        <span translate class="limited">{{memberName}}</span>
+      </button>
+      <ng-template #login>
+        <button  mat-stroked-button color="primary" routerLink="/account">
+          <mat-icon>person</mat-icon>
+          <span translate>MEMBERS LOGIN</span>
+        </button>
+      </ng-template>
+      </mat-toolbar>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #whoWeAre="matMenu" class="no-padding">
+  <mat-action-list>
+    <button mat-list-item>
+      <span translate>Mr. Chairman Word</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Board Of Directors</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Terms Of Reference & Objectives</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Statute & Internal Regulations</span>
+    </button>
+  </mat-action-list>
+</mat-menu>
+<mat-menu #engOffices="matMenu" class="no-padding">
+  <mat-action-list>
+    <button mat-list-item>
+      <span translate>Member Login</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Registration Requirements</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Search For An Office</span>
+    </button>
+  </mat-action-list>
+</mat-menu>
+<mat-menu #media="matMenu" class="no-padding">
+  <mat-action-list>
+    <button mat-list-item>
+      <span translate>Our News</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Picture Library</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item>
+      <span translate>Videos</span>
+    </button>
+  </mat-action-list>
+</mat-menu>

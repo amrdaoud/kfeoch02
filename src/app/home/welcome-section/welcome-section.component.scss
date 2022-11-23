@@ -1,0 +1,38 @@
+.welcome-section {
+  color: white;
+  position: relative;
+  display: block;
+  padding: 15px 0px;
+}
+.welcome-section .container {
+  position: relative;
+  z-index: 2;
+  padding-right: 15px;
+  padding-left: 15px;
+
+}
+
+.tile-top .mat-grid-tile {
+  align-items: flex-start;
+}
+
+.fa-check-double:before {
+    content: "\f560";
+}
+.welcome-section .icon {
+  color: #005c9c;
+  opacity: 0.2;
+  position: relative;
+  z-index: 1;
+}
+.welcome-text {
+  color:#fff;
+  max-width: 800px;
+}
+.welcome-text h2 {
+  font-size: 30px;
+  line-height: 3rem;
+}
+.welcome-text p {
+  padding-left: 20px;
+}

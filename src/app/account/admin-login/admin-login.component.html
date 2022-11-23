@@ -1,0 +1,36 @@
+<div class="flex-container account-bg">
+  <div class="overall-spinner-container" *ngIf="(isLogging | async)">
+    <mat-spinner></mat-spinner>
+  </div>
+  <form [formGroup]="frm" (ngSubmit)="login()">
+  <mat-card class="account-card">
+    <div class="logo-container">
+      <img src="assets/images/logos/light/logo-horizontal.png">
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-header>
+      <mat-card-title translate>
+        Admin Login
+      </mat-card-title>
+      <mat-card-subtitle translate>
+        Please fill in your credentials
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <app-input controlName="UserName" [formGroup]="frm" [label]="'User Name' | translate"></app-input>
+      </div>
+      <div>
+        <app-input [formGroup]="frm" controlName="Password" [label]="'Password' | translate" type="password"></app-input>
+      </div>
+      <div class="align-items-center">
+        <button mat-button type="button"><span translate>Forget you password?</span></button>
+      </div>
+      <div class="align-items-center">
+        <button mat-raised-button color="primary" style="width:90%" [disabled]="frm.invalid">
+          <span translate>Login</span></button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+</div>
