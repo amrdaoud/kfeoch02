@@ -15,7 +15,6 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NewsSectionComponent } from './news-section/news-section.component';
-import { FooterSectionComponent } from './footer-section/footer-section.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -24,8 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     HomeComponent,
     WelcomeSectionComponent,
     OfficeSliderComponent,
-    NewsSectionComponent,
-    FooterSectionComponent
+    NewsSectionComponent
   ],
   imports: [
     CommonModule,
