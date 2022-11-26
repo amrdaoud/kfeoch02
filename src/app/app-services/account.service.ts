@@ -132,6 +132,13 @@ export class AccountService {
     }
     return null;
   }
+  getUserName(): string | null {
+    const auth = this.auth;
+    if(auth) {
+      return auth.UserName;
+    }
+    return null;
+  }
   logOut() {
     localStorage.removeItem('auth');
   }

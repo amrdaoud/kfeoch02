@@ -1,5 +1,65 @@
-<div class="office-home-content">
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
   <h1 class="mat-h1">
     Activities
   </h1>
+  <h3 class="mat-h3">
+    Add New Activity
+  </h3>
+  <p>
+    Select activity to be added
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-select
+          controlName="ActivityId"
+          [formGroup]="frm"
+          [label]="'Activities' | translate"
+          [placeHolder]="'Select Activity' | translate"
+          [options]="eligibleActivities"
+          [isLoading]="(isLoadingEligible | async)!"
+          [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+          optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
+        <span>Add</span>
+      </button>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3">
+    Activities List
+  </h3>
+  <p>
+    List of your available activities
+  </p>
+  <mat-card >
+    <ng-template #noActivities>
+      <p>
+        No activities available
+      </p>
+    </ng-template>
+    <mat-list *ngIf="officeActivities.length > 0; else noActivities">
+      <mat-list-item *ngFor="let item of officeActivities; let i = index">
+        <p matLine>
+          {{item.NameEnglish}}
+        </p>
+        <p matLine>
+          @{{item.AddedDate | localeDate}}
+        </p>
+        <span class="full-spacer"></span>
+        <button mat-icon-button type="button" (click)="delete(item.Id, i)"><mat-icon>delete</mat-icon></button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+
+  </form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
 </div>

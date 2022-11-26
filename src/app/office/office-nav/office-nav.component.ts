@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AccountService } from 'src/app/app-services/account.service';
 import { ConfirmService } from 'src/app/app-services/confirm.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-office-nav',
@@ -10,7 +11,7 @@ import { ConfirmService } from 'src/app/app-services/confirm.service';
   styleUrls: ['./office-nav.component.scss']
 })
 export class OfficeNavComponent implements OnInit {
-
+  isTest = environment.test;
   constructor(private accountService: AccountService,
               private router: Router,
               private confirm: ConfirmService) { }

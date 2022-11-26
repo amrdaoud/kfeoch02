@@ -86,7 +86,7 @@
         "build-test": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/kfeoch02",
+            "outputPath": "dist/kfeoch02-test",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

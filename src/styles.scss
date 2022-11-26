@@ -733,14 +733,15 @@ ul.social > li > a:hover {
     .mat-h4 {
       margin-top: 0px;
     }
-    p{
+    p:not(.mat-line){
       color: rgb(157, 157, 157);
     }
     .actions-container {
       margin-top: 40px;
     }
-    button {
+    button.mat-raised-button{
       width: 100%;
+      margin-bottom: 16.125px;
     }
     .mat-form-field-appearance-outline .mat-form-field-outline {
       background-color: white;
@@ -817,4 +818,7 @@ ul.social > li > a:hover {
     line-height: 60px;
     font-size: 12px;
   }
+}
+.hide {
+  display: none !important;
 }

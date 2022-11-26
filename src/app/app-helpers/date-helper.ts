@@ -3,7 +3,7 @@ export function getLocaleDate(dateString: string | Date | null | undefined): Dat
     return '';
   }
   const date = new Date(dateString!);
-  console.log(date);
+  console.log(date.toString().replace('Z',''));
   const result = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
   return result;
 }

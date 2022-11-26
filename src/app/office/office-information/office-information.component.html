@@ -1,5 +1,5 @@
 
-<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" *ngIf="!isTest;else test">
   <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
   <h1 class="mat-h1">
     Information
@@ -267,3 +267,10 @@
 <div class="saving-data" *ngIf="(isLoading | async)">
   <mat-spinner diameter="30"></mat-spinner>
 </div>
+<ng-template #test>
+  <div *ngIf="office">
+    <h2>Welcome {{office.NameEnglish}} - {{office.NameArabic}}</h2>
+  </div>
+  <button (click)="logOut()">Logout</button>
+</ng-template>
+

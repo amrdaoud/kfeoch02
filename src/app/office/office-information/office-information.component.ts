@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { exhaustMap, filter, map, switchMap, tap } from 'rxjs';
 import { Office } from 'src/app/app-models/office';
 import { AccountService } from 'src/app/app-services/account.service';
@@ -9,6 +9,7 @@ import { DeviceService } from 'src/app/app-services/device.service';
 import { DictionaryService } from 'src/app/app-services/dictionary.service';
 import LanguageService from 'src/app/app-services/language.service';
 import { OfficeService } from 'src/app/app-services/office.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-office-information',
@@ -16,7 +17,7 @@ import { OfficeService } from 'src/app/app-services/office.service';
   styleUrls: ['./office-information.component.scss']
 })
 export class OfficeInformationComponent implements OnInit {
-
+  isTest = environment.test;
   language = this.languageService.currentLanguage;
   office!: Office;
   frm!: FormGroup;
@@ -41,7 +42,8 @@ export class OfficeInformationComponent implements OnInit {
               private route: ActivatedRoute,
               private confirm: ConfirmService,
               private accountService: AccountService,
-              private deviceService: DeviceService) { }
+              private deviceService: DeviceService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
@@ -93,6 +95,11 @@ export class OfficeInformationComponent implements OnInit {
     formData.append("File", selectedFile);
     formData.append("FileName", this.officeId? this.officeId.toString() : '');
     this.officeService.uploadLogo(formData).subscribe(x => this.office.LogoUrl = x.LogoUrl + '?r=' + Date.now());
+  }
+
+  logOut() {
+    this.accountService.logOut();
+    this.router.navigateByUrl('/');
   }
 
 }

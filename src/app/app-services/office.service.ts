@@ -59,6 +59,7 @@ export class OfficeService {
     });
     return frm;
   }
+
   getOfficeById(id: number): Observable<Office> {
     this.isLoading$.next(true)
     return this.http.get<Office>(this.officeUrl + id).pipe(
@@ -77,6 +78,8 @@ export class OfficeService {
   uploadLogo(data: FormData): Observable<{LogoUrl: string}> {
     return this.http.post<{LogoUrl: string}>(this.officeUrl + 'upload-logo', data);
   }
+
+
 
   get isLoading(): Observable<boolean> {
     return this.isLoading$.asObservable();

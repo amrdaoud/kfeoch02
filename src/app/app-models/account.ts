@@ -27,6 +27,7 @@ export interface AuthenticationModel {
   IsAuthenticated: boolean;
   NameArabic: string | null;
   NameEnglish: string | null;
+  UserName: string | null;
   Email: string | null;
   Roles: string[] | null;
   Token: string | null;

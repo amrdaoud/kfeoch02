@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Area, Country, Governorate, OfficeEntity, OfficeLegalEntity, OfficeType } from '../app-models/dictionary';
+import { Area, Country, Governorate, OfficeEntity, OfficeLegalEntity, OfficeType, Specialty } from '../app-models/dictionary';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,9 @@ export class DictionaryService {
 
   private areas$ = new BehaviorSubject<Area[]>([]);
   private areasLoading$ = new BehaviorSubject<boolean>(false);
+
+  private specialties$ = new BehaviorSubject<Specialty[]>([]);
+  private specialtiesLoading$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
     this.httpGetOfficeTypes().subscribe();
@@ -85,6 +88,12 @@ export class DictionaryService {
       finalize(() => this.areasLoading$.next(false))
     )
   }
+  httpGetSpecialties(): Observable<Specialty[]> {
+      return this.http.get<Specialty[]>(this.dictionaryUrl + 'office-specialties').pipe(
+        tap(x => this.specialties$.next(x)),
+        finalize(() => this.specialtiesLoading$.next(false))
+    )
+  }
 
   ///elements
   get officeTypes(): Observable<OfficeType[]> {
@@ -125,6 +134,13 @@ export class DictionaryService {
   }
   get areasLoading(): Observable<boolean> {
     return this.areasLoading$.asObservable();
+  }
+
+  get specialties(): Observable<Specialty[]> {
+    return this.specialties$.asObservable();
+  }
+  get specialtiesLoading(): Observable<boolean> {
+    return this.specialtiesLoading$.asObservable();
   }
 
 }

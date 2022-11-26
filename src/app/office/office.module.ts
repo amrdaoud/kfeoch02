@@ -25,6 +25,7 @@ import { OwnersComponent } from './owners/owners.component';
 import { SpecialtiesComponent } from './specialties/specialties.component';
 import { PhonesComponent } from './phones/phones.component';
 import { ActivitiesComponent } from './activities/activities.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ActivitiesComponent } from './activities/activities.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
   ]
 })
 export class OfficeModule { }

@@ -47,3 +47,23 @@ export interface Area {
   DescriptionEnglish: string;
   GovernorateId: number;
 }
+
+export interface Specialty {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  OfficeTypeId: number;
+  IsDeleted: boolean;
+}
+
+export interface Activity {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  OfficeTypeId: number;
+  IsDeleted: boolean;
+}

@@ -31,3 +31,33 @@ export interface Office {
   LogoUrl: string | null;
   ShowInHome: boolean | null;
 }
+
+export interface OfficeSpecialityBindingModel {
+  OfficeId: number;
+  SpecialityId: number;
+}
+export interface OfficeSpecialityViewModel {
+  Id: number;
+  OfficeId: number ;
+  SpecialityId: number;
+  NameArabic: string;
+  NameEnglish: string;
+  AddedDate: Date;
+  IsApproved: boolean;
+  IsDeleted: boolean;
+}
+
+export interface OfficeActivityBindingModel {
+  OfficeId: number;
+  ActivityId: number;
+}
+export interface OfficeActivityViewModel {
+  Id: number;
+  OfficeId: number ;
+  ActivityId: number;
+  NameArabic: string;
+  NameEnglish: string;
+  AddedDate: Date;
+  IsApproved: boolean;
+  IsDeleted: boolean;
+}

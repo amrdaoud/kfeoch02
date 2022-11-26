@@ -1,5 +1,5 @@
 <mat-sidenav-container class="office-side-nav2">
-  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
+  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer [ngClass]="isTest ? 'hide' : ''">
     <mat-toolbar>
       <span translate>Office Account</span>
     </mat-toolbar>
