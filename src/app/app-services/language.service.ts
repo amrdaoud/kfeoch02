@@ -25,6 +25,7 @@ export default class LanguageService {
     this.changeCssFile(lang);
     this.currentLanguage = lang;
     this.currentLanguageSubject.next(lang);
+    // window.location.reload();
  }
  private changeCssFile(lang: string) {
   let headTag = this.document.getElementsByTagName("head")[0] as HTMLHeadElement;

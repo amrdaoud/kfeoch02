@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LocaleDatePipe } from '../app-helpers/locale-date.pipe';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NameHolderComponent } from './name-holder/name-holder.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     InputComponent,
     SelectComponent,
     LocaleDatePipe,
-    ConfirmComponent
+    ConfirmComponent,
+    NameHolderComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatDialogModule
   ],
-  exports: [SelectorCardComponent, NewsCardComponent, InputComponent, SelectComponent, LocaleDatePipe]
+  exports: [SelectorCardComponent, NewsCardComponent, InputComponent, SelectComponent, LocaleDatePipe, NameHolderComponent]
 })
 export class SharedModule { }

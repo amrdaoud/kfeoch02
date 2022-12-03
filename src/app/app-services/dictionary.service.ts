@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Area, Country, Governorate, OfficeEntity, OfficeLegalEntity, OfficeType, Specialty } from '../app-models/dictionary';
+import { Area, Country, Gender, Governorate, OfficeEntity, OfficeLegalEntity, OfficeType, Specialty } from '../app-models/dictionary';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,12 @@ export class DictionaryService {
   private specialties$ = new BehaviorSubject<Specialty[]>([]);
   private specialtiesLoading$ = new BehaviorSubject<boolean>(false);
 
+  private genders$ = new BehaviorSubject<Gender[]>([]);
+  private gendersLoading$ = new BehaviorSubject<boolean>(false);
+
+  private memberSpecialties$ = new BehaviorSubject<Specialty[]>([]);
+  private memberSpecialtiesLoading$ = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient) {
     this.httpGetOfficeTypes().subscribe();
     this.httpGetOfficeEntities().subscribe();
@@ -37,6 +43,8 @@ export class DictionaryService {
     this.httpGetCountries().subscribe();
     this.httpGetGovernorates().subscribe();
     this.httpGetAreas().subscribe();
+    this.httpGetGenders().subscribe();
+    this.httpGetMemberSpecialities().subscribe();
   }
 
   httpGetOfficeTypes(): Observable<OfficeType[]> {
@@ -94,6 +102,18 @@ export class DictionaryService {
         finalize(() => this.specialtiesLoading$.next(false))
     )
   }
+  httpGetGenders(): Observable<Gender[]> {
+    return this.http.get<Gender[]>(this.dictionaryUrl + 'genders').pipe(
+      tap(x => this.genders$.next(x)),
+      finalize(() => this.gendersLoading$.next(false))
+  )
+  }
+  httpGetMemberSpecialities(): Observable<Specialty[]> {
+    return this.http.get<Specialty[]>(this.dictionaryUrl + 'office-owner-specialities').pipe(
+      tap(x => this.memberSpecialties$.next(x)),
+      finalize(() => this.memberSpecialtiesLoading$.next(false))
+  )
+  }
 
   ///elements
   get officeTypes(): Observable<OfficeType[]> {
@@ -141,6 +161,20 @@ export class DictionaryService {
   }
   get specialtiesLoading(): Observable<boolean> {
     return this.specialtiesLoading$.asObservable();
+  }
+
+  get genders(): Observable<Gender[]> {
+    return this.genders$.asObservable();
+  }
+  get gendersLoading(): Observable<boolean> {
+    return this.gendersLoading$.asObservable();
+  }
+
+  get ownerSpecialties(): Observable<Specialty[]> {
+    return this.memberSpecialties$.asObservable();
+  }
+  get ownerSpecialtiesLoading(): Observable<boolean> {
+    return this.memberSpecialtiesLoading$.asObservable();
   }
 
 }

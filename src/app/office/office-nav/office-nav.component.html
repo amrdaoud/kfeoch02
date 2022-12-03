@@ -3,9 +3,14 @@
     <div class="logo-toolbar">
       <img src="assets/images/logos/dark/logo-no-text-white.png">
     </div>
-    <div class="btn-icon">
-      <button mat-icon-button><span class="material-symbols-outlined" [routerLink]="'/office/home'" routerLinkActive="office-navbar-active">
+    <div class="btn-icon" [routerLink]="'/office/home'">
+      <button mat-icon-button><span class="material-symbols-outlined"  routerLinkActive="office-navbar-active">
         home
+      </span></button>
+    </div>
+    <div class="btn-icon" [routerLink]="'/office/members'">
+      <button mat-icon-button><span class="material-symbols-outlined"  routerLinkActive="office-navbar-active">
+        group
       </span></button>
     </div>
     <div class="btn-icon">
@@ -23,10 +28,19 @@
         mail
       </span></button>
     </div>
-    <div class="btn-icon">
+    <!-- <div class="btn-icon">
       <button mat-icon-button><span class="material-symbols-outlined">
         key
       </span></button>
+    </div> -->
+    <div class="btn-icon">
+      <button mat-icon-button><span class="material-symbols-outlined" [mat-menu-trigger-for]="languageMenu">
+        language
+      </span></button>
+      <mat-menu #languageMenu>
+        <button mat-menu-item (click)="changeLanguage('en')">English</button>
+        <button mat-menu-item (click)="changeLanguage('ar')">Arabic</button>
+      </mat-menu>
     </div>
     <div class="btn-icon">
       <button mat-icon-button><span class="material-symbols-outlined" (click)="logOut()">

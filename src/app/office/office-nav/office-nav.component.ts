@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AccountService } from 'src/app/app-services/account.service';
 import { ConfirmService } from 'src/app/app-services/confirm.service';
+import LanguageService from 'src/app/app-services/language.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,11 +13,15 @@ import { environment } from 'src/environments/environment';
 })
 export class OfficeNavComponent implements OnInit {
   isTest = environment.test;
+  language$ = this.languageService.currentLanguage$;
+  language: string = this.languageService.currentLanguage;
   constructor(private accountService: AccountService,
               private router: Router,
-              private confirm: ConfirmService) { }
+              private confirm: ConfirmService,
+              private languageService: LanguageService) { }
 
   ngOnInit(): void {
+    this.language$.subscribe(x => this.language = x)
   }
   logOut() {
     this.confirm.open('Are you sure you want to logout?').pipe(
@@ -25,6 +30,13 @@ export class OfficeNavComponent implements OnInit {
       this.accountService.logOut();
       this.router.navigateByUrl('/account/login');
     })
+
+  }
+  changeLanguage(lang: string) {
+    if(lang === this.language) {
+      return;
+    }
+    this.languageService.changeLangage(lang);
 
   }
 

@@ -47,7 +47,11 @@ export interface Area {
   DescriptionEnglish: string;
   GovernorateId: number;
 }
-
+export interface Gender {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+}
 export interface Specialty {
   Id: number;
   NameArabic: string;

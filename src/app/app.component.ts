@@ -6,7 +6,8 @@ import LanguageService from './app-services/language.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private languageService: LanguageService){}
+  constructor(private languageService: LanguageService){
+  }
 
   title = 'kfeoch02';
   ngOnInit():void {

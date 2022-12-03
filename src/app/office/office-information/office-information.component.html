@@ -56,7 +56,7 @@
           <button mat-button color="primary" type="button" (click)="input.click()">Change</button>
       </mat-grid-tile>
       <mat-grid-tile>
-        <button mat-button type="button">Remove</button>
+        <button mat-button type="button" (click)="deleteLogo()">Remove</button>
       </mat-grid-tile>
     </mat-grid-list>
     <input id="file-upload" #input [disabled]="(isLoading | async)"

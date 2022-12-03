@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwnersComponent } from './owners.component';
+import { OfficeSecurityComponent } from './office-security.component';
 
-describe('OwnersComponent', () => {
-  let component: OwnersComponent;
-  let fixture: ComponentFixture<OwnersComponent>;
+describe('OfficeSecurityComponent', () => {
+  let component: OfficeSecurityComponent;
+  let fixture: ComponentFixture<OfficeSecurityComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OwnersComponent ]
+      declarations: [ OfficeSecurityComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OwnersComponent);
+    fixture = TestBed.createComponent(OfficeSecurityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

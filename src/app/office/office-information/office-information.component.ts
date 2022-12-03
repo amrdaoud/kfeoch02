@@ -96,6 +96,18 @@ export class OfficeInformationComponent implements OnInit {
     formData.append("FileName", this.officeId? this.officeId.toString() : '');
     this.officeService.uploadLogo(formData).subscribe(x => this.office.LogoUrl = x.LogoUrl + '?r=' + Date.now());
   }
+  deleteLogo() {
+    this.confirm.open('Are you sure you want to remove logo?').pipe(
+      filter(x => x),
+      exhaustMap(() => {
+        return this.officeService.deleteLogo(this.office.Id);
+      })
+    ).subscribe(x => {
+      if(x) {
+        this.office.LogoUrl = null;
+      }
+    })
+  }
 
   logOut() {
     this.accountService.logOut();

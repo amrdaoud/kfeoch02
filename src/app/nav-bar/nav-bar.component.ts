@@ -24,7 +24,6 @@ export class NavBarComponent implements AfterViewInit {
               private accountService: AccountService) { }
   changeLanguage(lang: string) {
     this.languageService.changeLangage(lang);
-    window.location.reload();
   }
   ngAfterViewInit(): void {
     AOS.init();

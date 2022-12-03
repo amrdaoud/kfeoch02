@@ -746,6 +746,12 @@ ul.social > li > a:hover {
     .mat-form-field-appearance-outline .mat-form-field-outline {
       background-color: white;
     }
+    .mat-row.clickable {
+      cursor: pointer;
+    }
+    .mat-row.clickable:hover {
+      background-color: rgba(rgb(220, 220, 220),0.4);
+    }
 
   }
   .dialog-no-padding .mat-dialog-container {
@@ -821,4 +827,70 @@ ul.social > li > a:hover {
 }
 .hide {
   display: none !important;
+}
+.name-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 0px;
+}
+.name-text {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin-left: 15px;
+  .mat-h4 {
+    line-height: 100%;
+    margin-bottom:10px;
+    font-weight: 500;
+  }
+  .mat-h5 {
+    line-height: 100%;
+    margin:0px;
+    color: rgb(157, 157, 157);
+  }
+}
+.name-circle {
+  width:55px;
+  height:55px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+  font-size: large;
+}
+.name-circle.primary {
+  background-color: rgba($primary-color,0.4);
+  color: $primary-color;
+}
+.name-circle.accent {
+  background-color: rgba($accent-color,0.4);
+  color: $accent-color;
+}
+.name-circle.green {
+  background-color: rgba(#4CAF50,0.4);
+  color: #4CAF50;
+}
+.name-circle.orange {
+  background-color: rgba(#FF5722,0.4);
+  color: #FF5722;
+}
+input[type="file"] {
+  display: none;
+}
+.file-list {
+  div.mat-line>span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  p.mat-line {
+    font-size: 12px !important;
+    .mat-button {
+      padding: 0px !important;
+      min-width: 0px;
+      line-height: unset;
+    }
+  }
 }

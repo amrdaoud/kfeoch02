@@ -21,21 +21,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { OwnersComponent } from './owners/owners.component';
 import { SpecialtiesComponent } from './specialties/specialties.component';
 import { PhonesComponent } from './phones/phones.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { OfficeSecurityComponent } from './office-security/office-security.component';
 
 @NgModule({
   declarations: [
     OfficeHomeComponent,
     OfficeNavComponent,
     OfficeInformationComponent,
-    OwnersComponent,
     SpecialtiesComponent,
     PhonesComponent,
-    ActivitiesComponent
+    ActivitiesComponent,
+    OfficeSecurityComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +57,8 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ]
 })
 export class OfficeModule { }

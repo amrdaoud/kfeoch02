@@ -59,7 +59,10 @@ export class OfficeService {
     });
     return frm;
   }
-
+  createOfficeChangePasswordForm(): FormGroup {
+    const frm = new FormGroup({});
+    return frm;
+  }
   getOfficeById(id: number): Observable<Office> {
     this.isLoading$.next(true)
     return this.http.get<Office>(this.officeUrl + id).pipe(
@@ -77,6 +80,9 @@ export class OfficeService {
   }
   uploadLogo(data: FormData): Observable<{LogoUrl: string}> {
     return this.http.post<{LogoUrl: string}>(this.officeUrl + 'upload-logo', data);
+  }
+  deleteLogo(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.officeUrl + 'delete-logo/' + id);
   }
 
 
