@@ -146,5 +146,8 @@ body {
   .mat-row.clickable:hover {
     background-color: rgba(rgb(220, 220, 220),0.4);
   }
+  .mat-dialog-container {
+    direction: rtl;
+  }
 
 }

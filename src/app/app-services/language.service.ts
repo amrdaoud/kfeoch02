@@ -24,7 +24,9 @@ export default class LanguageService {
  }
  private changeLanguage(lang: string) {
   let htmlTag = this.document.getElementsByTagName("html")[0] as HTMLHtmlElement;
+  //let overlayTag = htmlTag.getElementsByClassName("cdk-overlay-container")[0] as HTMLElement;
   htmlTag.dir = lang === "ar" ? "rtl" : "ltr";
+  //overlayTag.dir = lang === "ar" ? "rtl" : "ltr";
   this.currentDirectionSubject.next(htmlTag.dir);
   this.translateService.setDefaultLang(lang);
   this.translateService.use(lang);
