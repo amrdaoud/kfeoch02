@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { BehaviorSubject, catchError, delay, finalize, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AdminLoginModel, AuthenticationModel, OfficeLoginModel, OfficeRegistrationModel } from '../app-models/account';
+import { AdminLoginModel, AuthenticationModel, OfficeChangePasswordModel, OfficeLoginModel, OfficeRegistrationModel } from '../app-models/account';
 import { ResultWithMessage } from '../app-models/shared';
 import { AsyncValidatorsService } from '../app-validators/async-validators.service';
 import { validateClearSibling, validateMatchFunction } from '../app-validators/custom-validators';
@@ -76,7 +76,17 @@ export class AccountService {
     });
     return frm;
   }
-
+  createOfficeChangePasswordForm(): FormGroup {
+    const frm = new FormGroup({
+      UserName: new FormControl(this.getUserName(), Validators.required),
+      CurrentPassword: new FormControl('',Validators.required),
+      NewPassword: new FormControl('', [Validators.required,
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/),
+        validateClearSibling('PasswordConfirm')]),
+      PasswordConfirm: new FormControl('', [Validators.required, validateMatchFunction('NewPassword')])
+    });
+    return frm;
+  }
   ///Http Requests
 
   httpOfficeRegister(model: OfficeRegistrationModel): Observable<ResultWithMessage> {
@@ -99,7 +109,12 @@ export class AccountService {
       finalize(() => this.isLogging$.next(false))
     )
   }
-
+  httpOfficeChangePassword(model: OfficeChangePasswordModel): Observable<ResultWithMessage> {
+    this.isLogging$.next(true)
+    return this.http.post<ResultWithMessage>(this.accountUrl + 'office-changepassword', model).pipe(
+      finalize(() => this.isLogging$.next(false))
+    )
+  }
   ///Local Storage (Auth)
 
   private storeAuth(model: AuthenticationModel) {

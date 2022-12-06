@@ -79,14 +79,14 @@ body {
   height: 5px;
   background-color: #005c9c;
 }
-.mat-icon {
+.mat-icon:not(.force-ltr) {
   -moz-transform: scale(-1, 1);
   -webkit-transform: scale(-1, 1);
   -o-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
-.material-symbols-outlined {
+.material-symbols-outlined:not(.force-ltr) {
   -moz-transform: scale(-1, 1);
   -webkit-transform: scale(-1, 1);
   -o-transform: scale(-1, 1);
@@ -107,4 +107,44 @@ body {
     line-height: 60px;
     font-size: 12px;
   }
+}
+
+.office-home-content {
+  padding: 40px 80px;
+  .mat-h1{
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+  .mat-h3{
+    font-weight: 500;
+    margin-top: 16px;
+    margin-bottom: 0px;
+  }
+  div.form-field-container {
+    width: 100%;
+    padding-right: 15px;
+  }
+  .mat-h4 {
+    margin-top: 0px;
+  }
+  p:not(.mat-line){
+    color: rgb(157, 157, 157);
+  }
+  .actions-container {
+    margin-top: 40px;
+  }
+  button.mat-raised-button{
+    width: 100%;
+    margin-bottom: 16.125px;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+  }
+  .mat-row.clickable {
+    cursor: pointer;
+  }
+  .mat-row.clickable:hover {
+    background-color: rgba(rgb(220, 220, 220),0.4);
+  }
+
 }

@@ -38,3 +38,8 @@ export interface AuthenticationModel {
   RefreshTokenExpiry: Date | string;
   OfficeId: number;
 }
+export interface OfficeChangePasswordModel {
+  UserName: string;
+  CurrentPassword: string;
+  NewPassword: string;
+}

@@ -40,7 +40,7 @@
           [placeHolder]="'Select Gender' | translate"
           [options]="(genders | async)!"
           [isLoading]="(gendersLoading | async)!"
-          [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+          [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
           optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
@@ -59,7 +59,7 @@
         [placeHolder]="'Select Speciality' | translate"
         [options]="(specialties | async)!"
         [isLoading]="(specialtiesLoading | async)!"
-        [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+        [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
         optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
@@ -83,7 +83,7 @@
       <mat-list class="file-list">
         <ng-container *ngFor="let documentType of officeMember.Documents; let di = index">
           <input id="file-upload" #input [disabled]="(isLoading | async)"
-          type="file" name="fileUpload" accept=".png,.jpg,.jpeg,.pdf" (change)="uploadFile($event, documentType)"/>
+          type="file" name="fileUpload" accept=".png,.jpg,.jpeg,.pdf" (change)="uploadFile($event, documentType); input.value = ''"/>
         <div mat-subheader>{{documentType.NameEnglish}}
           <span class="full-spacer"></span>
           <button mat-button color="primary" type="button" (click)="input.click()">

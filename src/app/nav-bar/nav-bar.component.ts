@@ -18,12 +18,13 @@ export class NavBarComponent implements AfterViewInit {
   officeId = this.accountService.getOfficeId();
   @ViewChild(MatSidenavContent) navContent!: MatSidenavContent;
   stretchMenu! : Observable<boolean>;
-
+  dir = this.languageService.currentDirection$;
   constructor(private deviceService: DeviceService,
               private languageService: LanguageService,
               private accountService: AccountService) { }
   changeLanguage(lang: string) {
-    this.languageService.changeLangage(lang);
+    this.languageService.changeLangageRefresh(lang);
+    this.memberName = this.accountService.getAuthName();
   }
   ngAfterViewInit(): void {
     AOS.init();

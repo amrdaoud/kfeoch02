@@ -16,7 +16,7 @@ import { OfficeActivitiesService } from 'src/app/app-services/office-activities.
   styleUrls: ['./activities.component.scss']
 })
 export class ActivitiesComponent implements OnInit {
-
+  language$ = this.languageService.currentLanguage$;
   isHandset = this.deviceService.isHandset$;
   officeId = this.accountService.getOfficeId();
   officeActivities: OfficeActivityViewModel[] = [];

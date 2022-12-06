@@ -12,6 +12,7 @@ import LanguageService from 'src/app/app-services/language.service';
   styleUrls: ['./office-register.component.scss']
 })
 export class OfficeRegisterComponent implements OnInit {
+  language$ = this.languageService.currentLanguage$;
   frm = this.accountService.createOfficeRegisterForm();
   officeTypes = this.accountService.officeTypes;
   officeTypesLoading = this.accountService.officeTypesLoading;

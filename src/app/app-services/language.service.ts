@@ -14,18 +14,23 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export default class LanguageService {
   private currentLanguageSubject = new BehaviorSubject<string>(this.currentLanguage);
+  private currentDirectionSubject = new BehaviorSubject<string>(this.currentLanguage === 'ar' ? 'rtl' : 'ltr')
   constructor(private translateService: TranslateService, @Inject(DOCUMENT) private document: Document){
-    this.changeLangage(this.currentLanguage);
+    this.changeLanguage(this.currentLanguage);
   }
-  changeLangage(lang: string) {
-    let htmlTag = this.document.getElementsByTagName("html")[0] as HTMLHtmlElement;
-    htmlTag.dir = lang === "ar" ? "rtl" : "ltr";
-    this.translateService.setDefaultLang(lang);
-    this.translateService.use(lang);
-    this.changeCssFile(lang);
-    this.currentLanguage = lang;
-    this.currentLanguageSubject.next(lang);
-    // window.location.reload();
+  changeLangageRefresh(lang: string) {
+    this.changeLanguage(lang);
+    //window.location.reload();
+ }
+ private changeLanguage(lang: string) {
+  let htmlTag = this.document.getElementsByTagName("html")[0] as HTMLHtmlElement;
+  htmlTag.dir = lang === "ar" ? "rtl" : "ltr";
+  this.currentDirectionSubject.next(htmlTag.dir);
+  this.translateService.setDefaultLang(lang);
+  this.translateService.use(lang);
+  this.changeCssFile(lang);
+  this.currentLanguage = lang;
+  this.currentLanguageSubject.next(lang);
  }
  private changeCssFile(lang: string) {
   let headTag = this.document.getElementsByTagName("head")[0] as HTMLHeadElement;
@@ -56,6 +61,9 @@ export default class LanguageService {
   }
   get currentLanguage$():Observable<string> {
     return this.currentLanguageSubject.asObservable();
+  }
+  get currentDirection$(): Observable<string> {
+    return this.currentDirectionSubject.asObservable();
   }
 
 }

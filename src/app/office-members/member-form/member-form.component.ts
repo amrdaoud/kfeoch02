@@ -16,6 +16,7 @@ import { OfficeMemberService } from 'src/app/app-services/office-member.service'
   styleUrls: ['./member-form.component.scss']
 })
 export class MemberFormComponent implements OnInit {
+  language$ = this.languageService.currentLanguage$;
   isHandset = this.deviceService.isHandset$;
   officeId = this.accountService.getOfficeId();
   officeMember!: OfficeMember;

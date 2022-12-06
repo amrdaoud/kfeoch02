@@ -15,6 +15,7 @@ export class OfficeNavComponent implements OnInit {
   isTest = environment.test;
   language$ = this.languageService.currentLanguage$;
   language: string = this.languageService.currentLanguage;
+  dir = this.languageService.currentDirection$;
   constructor(private accountService: AccountService,
               private router: Router,
               private confirm: ConfirmService,
@@ -36,7 +37,7 @@ export class OfficeNavComponent implements OnInit {
     if(lang === this.language) {
       return;
     }
-    this.languageService.changeLangage(lang);
+    this.languageService.changeLangageRefresh(lang);
 
   }
 

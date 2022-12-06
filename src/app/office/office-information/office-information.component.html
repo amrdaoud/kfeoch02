@@ -1,14 +1,14 @@
 
 <div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" *ngIf="!isTest;else test">
   <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
-  <h1 class="mat-h1">
+  <h1 class="mat-h1" translate>
     Information
   </h1>
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Main Information
   </h3>
-  <p>
-    These information will be displayed to website guests
+  <p translate>
+    These Information Will Be Displayed To Website Guests
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
     <mat-grid-tile>
@@ -20,7 +20,7 @@
           [placeHolder]="'Select Type' | translate"
           [options]="(officeTypes | async)!"
           [isLoading]="(officeTypesLoading | async)!"
-          [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+          [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
           optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
@@ -40,10 +40,10 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Logo
   </h3>
-  <p>
+  <p translate>
     Update your Logo
   </p>
   <div class="logo-options-container">
@@ -53,27 +53,27 @@
           <!-- <img class="avatar"  [src]="office.LogoUrl" alt="Avatar" onerror="this.onerror=null; this.src='assets/images/default_avatar.png';"> -->
       </mat-grid-tile>
       <mat-grid-tile>
-          <button mat-button color="primary" type="button" (click)="input.click()">Change</button>
+          <button mat-button color="primary" type="button" (click)="input.click()" ><span translate>Change</span></button>
       </mat-grid-tile>
       <mat-grid-tile>
-        <button mat-button type="button" (click)="deleteLogo()">Remove</button>
+        <button mat-button type="button" (click)="deleteLogo()"><span translate=>Remove</span></button>
       </mat-grid-tile>
     </mat-grid-list>
     <input id="file-upload" #input [disabled]="(isLoading | async)"
     type="file" name="fileUpload" accept=".png,.jpg,.jpeg" (change)="uploadLogo($event)"/>
   </div>
 
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Account Dates
   </h3>
-  <p>
-    These information will be displayed to website guests
+  <p translate>
+    Dates Related To Account
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
     <mat-grid-tile>
       <div class="form-field-container">
         <mat-form-field>
-          <mat-label>Registration Date</mat-label>
+          <mat-label translate>Registration Date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="RegistrationDate">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -84,7 +84,7 @@
     <mat-grid-tile>
       <div class="form-field-container">
         <mat-form-field>
-          <mat-label>Establishment Date</mat-label>
+          <mat-label translate>Establishment Date</mat-label>
           <input matInput [matDatepicker]="picker2" formControlName="EstablishmentDate">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -95,7 +95,7 @@
     <mat-grid-tile>
       <div class="form-field-container">
         <mat-form-field>
-          <mat-label>License Expiry Date</mat-label>
+          <mat-label translate>License Expiry Date</mat-label>
           <input matInput [matDatepicker]="picker3" formControlName="LicenseEndDate">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -104,11 +104,11 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Office Entities
   </h3>
-  <p>
-    These information will be displayed to website guests
+  <p translate>
+    Entities Related To Office
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
     <mat-grid-tile>
@@ -120,7 +120,7 @@
             [placeHolder]="'Select Entity' | translate"
             [options]="(officeEntities | async)!"
             [isLoading]="(officeEntitiesLoading | async)!"
-            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
             optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
@@ -133,16 +133,16 @@
             [placeHolder]="'Select Legal Entity' | translate"
             [options]="(officeLegalEntities | async)!"
             [isLoading]="(officeLegalEntitiesLoading | async)!"
-            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
             optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Contact Information
   </h3>
-  <p>
-    These information will be displayed to website guests
+  <p translate>
+    Place Your Contact Information To Be riched
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
     <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 2">
@@ -171,11 +171,11 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Location & Address
   </h3>
-  <p>
-    These information will be displayed to website guests
+  <p translate>
+    Your Headquarter Detailed Address
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
     <mat-grid-tile>
@@ -187,7 +187,7 @@
             [placeHolder]="'Select Country' | translate"
             [options]="(countries | async)!"
             [isLoading]="(countriesLoading | async)!"
-            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
             optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
@@ -200,7 +200,7 @@
             [placeHolder]="'Select Governorate' | translate"
             [options]="(governorates | async)!"
             [isLoading]="(governoratesLoading | async)!"
-            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
             optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
@@ -213,50 +213,52 @@
             [placeHolder]="'Select Area' | translate"
             [options]="(areas | async)!"
             [isLoading]="(areasLoading | async)!"
-            [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
             optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 3" rowspan="2">
       <div class="form-field-container">
         <mat-form-field>
-          <mat-label>Address</mat-label>
+          <mat-label translate>Address</mat-label>
           <textarea matInput formControlName="Address"></textarea>
         </mat-form-field>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
 
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Policy & Privacy
   </h3>
-  <p>
-    These information will be displayed to website guests
+  <p translate>
+    Accept Terms & Conditions And Set Your Privacy
   </p>
   <div class="form-field-container">
-    <mat-checkbox formControlName="AgreeToTerms">I agree to the terms and conditions</mat-checkbox>
+    <mat-checkbox formControlName="AgreeToTerms"><span translate>I agree to the terms and conditions</span></mat-checkbox>
   </div>
   <div class="form-field-container">
-    <mat-checkbox formControlName="ShowInHome">Show office in home</mat-checkbox>
+    <mat-checkbox formControlName="ShowInHome"><span translate>Show office in home</span></mat-checkbox>
   </div>
   <div class="form-field-container">
-    <mat-checkbox formControlName="IsVerified">Verified</mat-checkbox>
+    <mat-checkbox formControlName="IsVerified"><span translate>Verified</span></mat-checkbox>
   </div>
   <div class="form-field-container">
-    <mat-checkbox formControlName="IsActive">Active</mat-checkbox>
+    <mat-checkbox formControlName="IsActive"><span translate>Active</span></mat-checkbox>
   </div>
   <div>
     <mat-grid-list rowHeight="60" cols="2" class="actions-container">
       <mat-grid-tile>
         <div class="form-field-container">
           <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
-            <span>Save Changes</span>
+            <span translate>Save Changes</span>
           </button>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="form-field-container">
-          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">Reset</button>
+          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">
+            <span translate>Reset</span>
+          </button>
         </div>
       </mat-grid-tile>
     </mat-grid-list>

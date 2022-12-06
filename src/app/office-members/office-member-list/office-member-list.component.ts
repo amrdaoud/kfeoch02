@@ -59,5 +59,9 @@ export class OfficeMemberListComponent implements OnInit {
   rowClick(id:number) {
     this.router.navigateByUrl('/office/members/edit/' + id);
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
 }

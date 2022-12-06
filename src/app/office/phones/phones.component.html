@@ -1,5 +1,72 @@
 <div class="office-home-content">
-  <h1 class="mat-h1">
-    Phones
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
+  <h1 class="mat-h1" translate>
+    Contact List
   </h1>
+  <h3 class="mat-h3" translate>
+    Add New Contact
+  </h3>
+  <p translate>
+    Select contact type and contact number to be added
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-select
+          controlName="ContactId"
+          [formGroup]="frm"
+          [label]="'Contact Type' | translate"
+          [placeHolder]="'Select Contact Type' | translate"
+          [options]="(contactTypes | async)!"
+          [isLoading]="(contactTypesLoading | async)!"
+          [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+          optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
+        <span translate>Add</span>
+      </button>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3" translate>
+    Contact List
+  </h3>
+  <p translate>
+    List of your available Contacts
+  </p>
+  <mat-card >
+    <ng-template #noSpecialties>
+      <p translate>
+        No Contacts available
+      </p>
+    </ng-template>
+    <mat-list *ngIf="officeContacts.length > 0; else noSpecialties">
+      <mat-list-item *ngFor="let item of officeContacts; let i = index">
+        <p matLine>
+          {{item.PhoneNumber}}
+        </p>
+        <p matLine>
+          {{(language$ | async) == 'en' ? item.ContactNameEnglish : item.ContactNameArabic}}
+        </p>
+        <p matLine>
+          @{{item.AddedDate | localeDate}}
+        </p>
+        <span class="full-spacer"></span>
+        <button mat-icon-button type="button" (click)="delete(item.Id, i)"><mat-icon>delete</mat-icon></button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+  </form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
 </div>

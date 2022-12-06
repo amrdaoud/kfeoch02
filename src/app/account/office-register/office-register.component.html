@@ -28,7 +28,7 @@
             [placeHolder]="'Select Type' | translate"
             [options]="(officeTypes | async)!"
             [isLoading]="(officeTypesLoading | async)!"
-            [optionDisplay]="language === 'ar' ? 'NameArabic' :'NameEnglish'"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' :'NameEnglish'"
             optionValue="Id"></app-select>
         </mat-grid-tile>
         <mat-grid-tile>

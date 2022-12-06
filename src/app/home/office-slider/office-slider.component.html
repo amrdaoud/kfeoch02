@@ -59,7 +59,7 @@
                 <div>{{slide.NameEnglish}}</div>
               </mat-grid-tile>
               <mat-grid-tile class="accent-color">
-                <mat-icon [ngClass]="language === 'ar' ? 'mat-icon-rtl-mirror' : ''">phone</mat-icon>
+                <mat-icon [ngClass]="(language$ | async) === 'ar' ? 'mat-icon-rtl-mirror' : ''">phone</mat-icon>
               </mat-grid-tile>
               <mat-grid-tile class="accent-color" colspan="2">
                 <div style="width:100%">

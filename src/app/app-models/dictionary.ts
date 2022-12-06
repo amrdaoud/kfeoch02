@@ -71,3 +71,11 @@ export interface Activity {
   OfficeTypeId: number;
   IsDeleted: boolean;
 }
+export interface ContactType {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  IsDeleted: boolean;
+}

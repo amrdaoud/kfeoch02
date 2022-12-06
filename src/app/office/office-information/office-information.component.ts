@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 export class OfficeInformationComponent implements OnInit {
   isTest = environment.test;
   language = this.languageService.currentLanguage;
+  language$ = this.languageService.currentLanguage$;
   office!: Office;
   frm!: FormGroup;
   officeTypes = this.dictionaryService.officeTypes;

@@ -61,3 +61,21 @@ export interface OfficeActivityViewModel {
   IsApproved: boolean;
   IsDeleted: boolean;
 }
+
+export interface OfficeContactViewModel {
+  Id: number;
+  OfficeId: number;
+  ContactId: number;
+  ContactNameArabic: string;
+  ContactNameEnglish: string;
+  PhoneNumber: string;
+  AddedDate: Date;
+  IsApproved: boolean;
+  IsDeleted: boolean;
+}
+
+export interface OfficeContactBindingModel {
+  OfficeId: number;
+  ContactId: number;
+  PhoneNumber: string;
+}

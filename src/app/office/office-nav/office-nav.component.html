@@ -1,4 +1,4 @@
-<mat-sidenav-container class="office-side-nav">
+<mat-sidenav-container class="office-side-nav" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
   <mat-sidenav mode="side" opened="true" [ngClass]="isTest ? 'hide' : ''">
     <div class="logo-toolbar">
       <img src="assets/images/logos/dark/logo-no-text-white.png">
@@ -38,8 +38,8 @@
         language
       </span></button>
       <mat-menu #languageMenu>
-        <button mat-menu-item (click)="changeLanguage('en')">English</button>
-        <button mat-menu-item (click)="changeLanguage('ar')">Arabic</button>
+        <button mat-menu-item (click)="changeLanguage('en')" style="font-family: 'Roboto';">English</button>
+        <button mat-menu-item (click)="changeLanguage('ar')" style="font-family: 'Droid Arabic Kufi';">العربية</button>
       </mat-menu>
     </div>
     <div class="btn-icon">

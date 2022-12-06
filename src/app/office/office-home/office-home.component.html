@@ -1,4 +1,4 @@
-<mat-sidenav-container class="office-side-nav2">
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
   <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer [ngClass]="isTest ? 'hide' : ''">
     <mat-toolbar>
       <span translate>Office Account</span>
@@ -20,9 +20,9 @@
       </button> -->
       <button mat-list-item routerLink="specialties" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
         <span mat-list-icon class="material-symbols-outlined">card_membership</span>
-          <h3 mat-line mat-h3 translate>Specialties</h3>
+          <h3 mat-line mat-h3 translate>Specialities</h3>
           <p mat-line translate>
-            Add & Update office specialties
+            Add & Update office specialities
           </p>
       </button>
       <button mat-list-item routerLink="activities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
@@ -34,9 +34,9 @@
       </button>
       <button mat-list-item routerLink="phones" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
         <span mat-list-icon class="material-symbols-outlined">tag</span>
-          <h3 mat-line mat-h3 translate>Phones</h3>
+          <h3 mat-line mat-h3 translate>Contact List</h3>
           <p mat-line translate>
-            Add & Update office phone numbers
+            Add & Update office contact list
           </p>
       </button>
       <button mat-list-item routerLink="security" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">

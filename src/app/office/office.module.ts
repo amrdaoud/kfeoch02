@@ -27,6 +27,7 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { OfficeSecurityComponent } from './office-security/office-security.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { OfficeSecurityComponent } from './office-security/office-security.compo
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ]
 })
 export class OfficeModule { }

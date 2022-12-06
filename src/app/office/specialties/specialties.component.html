@@ -1,13 +1,13 @@
 <div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
   <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
-  <h1 class="mat-h1">
-    Specialties
+  <h1 class="mat-h1" translate>
+    Specialities
   </h1>
-  <h3 class="mat-h3">
-    Add New Specialty
+  <h3 class="mat-h3" translate>
+    Add New Speciality
   </h3>
-  <p>
-    Select specialty to be added
+  <p translate>
+    Select speciality to be added
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
     <mat-grid-tile>
@@ -16,37 +16,37 @@
           controlName="SpecialityId"
           [formGroup]="frm"
           [label]="'Specialities' | translate"
-          [placeHolder]="'Select Speciality' | translate"
+          [placeHolder]="'Select Specialiity' | translate"
           [options]="eligibleSpecialties"
           [isLoading]="(isLoadingEligible | async)!"
-          [optionDisplay]="language === 'ar' ? 'NameArabic' : 'NameEnglish'"
+          [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
           optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
       <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
-        <span>Add</span>
+        <span translate>Add</span>
       </button>
     </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <h3 class="mat-h3">
-    Specialties List
+  <h3 class="mat-h3" translate>
+    Specialities List
   </h3>
-  <p>
-    List of your available specialties
+  <p translate>
+    List of your available specialities
   </p>
   <mat-card >
     <ng-template #noSpecialties>
-      <p>
-        No specialties available
+      <p translate>
+        No specialities available
       </p>
     </ng-template>
     <mat-list *ngIf="officeSpecialties.length > 0; else noSpecialties">
       <mat-list-item *ngFor="let item of officeSpecialties; let i = index">
         <p matLine>
-          {{item.NameEnglish}}
+          {{(language$ | async) == 'en' ? item.NameEnglish : item.NameArabic}}
         </p>
         <p matLine>
           @{{item.AddedDate | localeDate}}

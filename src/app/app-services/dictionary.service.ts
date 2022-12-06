@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Area, Country, Gender, Governorate, OfficeEntity, OfficeLegalEntity, OfficeType, Specialty } from '../app-models/dictionary';
+import { Area, ContactType, Country, Gender, Governorate, OfficeEntity, OfficeLegalEntity, OfficeType, Specialty } from '../app-models/dictionary';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,9 @@ export class DictionaryService {
   private memberSpecialties$ = new BehaviorSubject<Specialty[]>([]);
   private memberSpecialtiesLoading$ = new BehaviorSubject<boolean>(false);
 
+  private contactTypes$ = new BehaviorSubject<ContactType[]>([]);
+  private contactTypesLoading$ = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient) {
     this.httpGetOfficeTypes().subscribe();
     this.httpGetOfficeEntities().subscribe();
@@ -45,6 +48,7 @@ export class DictionaryService {
     this.httpGetAreas().subscribe();
     this.httpGetGenders().subscribe();
     this.httpGetMemberSpecialities().subscribe();
+    this.httpGetContactTypes().subscribe();
   }
 
   httpGetOfficeTypes(): Observable<OfficeType[]> {
@@ -114,6 +118,12 @@ export class DictionaryService {
       finalize(() => this.memberSpecialtiesLoading$.next(false))
   )
   }
+  httpGetContactTypes(): Observable<ContactType[]> {
+    return this.http.get<ContactType[]>(this.dictionaryUrl + 'contact-types').pipe(
+      tap(x => this.contactTypes$.next(x)),
+      finalize(() => this.contactTypesLoading$.next(false))
+  )
+  }
 
   ///elements
   get officeTypes(): Observable<OfficeType[]> {
@@ -175,6 +185,13 @@ export class DictionaryService {
   }
   get ownerSpecialtiesLoading(): Observable<boolean> {
     return this.memberSpecialtiesLoading$.asObservable();
+  }
+
+  get contactTypes(): Observable<ContactType[]> {
+    return this.contactTypes$.asObservable();
+  }
+  get contactTypesLoading(): Observable<boolean> {
+    return this.contactTypesLoading$.asObservable();
   }
 
 }

@@ -17,6 +17,7 @@ import { OfficeService } from 'src/app/app-services/office.service';
   styleUrls: ['./specialties.component.scss']
 })
 export class SpecialtiesComponent implements OnInit {
+  language$ = this.languageService.currentLanguage$;
   isHandset = this.deviceService.isHandset$;
   officeId = this.accountService.getOfficeId();
   officeSpecialties: OfficeSpecialityViewModel[] = [];
@@ -89,5 +90,7 @@ export class SpecialtiesComponent implements OnInit {
 
     });
   }
+
+
 
 }

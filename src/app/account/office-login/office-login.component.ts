@@ -11,6 +11,7 @@ import LanguageService from 'src/app/app-services/language.service';
   styleUrls: ['./office-login.component.scss']
 })
 export class OfficeLoginComponent implements OnInit {
+  language$ = this.languageService.currentLanguage$;
   frm = this.accountService.createOfficeLoginForm();
   officeTypes = this.accountService.officeTypes;
   officeTypesLoading = this.accountService.officeTypesLoading;

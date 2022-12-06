@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HomeOffice } from 'src/app/app-models/office';
 import { DeviceService } from 'src/app/app-services/device.service';
+import LanguageService from 'src/app/app-services/language.service';
 
 const items: HomeOffice[] = [
   {
@@ -103,6 +104,7 @@ const items: HomeOffice[] = [
   styleUrls: ['./office-slider.component.scss']
 })
 export class OfficeSliderComponent implements OnInit {
+  language$ = this.languageService.currentLanguage$;
  isHandset = this.deviceService.isHandset$;
  @Input() items: any[] = items;
  @Input() value = 325;
@@ -131,9 +133,13 @@ export class OfficeSliderComponent implements OnInit {
   //   },
   // },
 };
-  constructor(private deviceService: DeviceService) { }
+  constructor(private deviceService: DeviceService,
+              private languageService: LanguageService) { }
   ngOnInit(): void {
-    this.customOptions.rtl = this.language === 'en' ? false : true;
+    this.languageService.currentDirection$.subscribe(dir => {
+      this.customOptions.rtl = dir ==='rtl';
+      this.customOptions = JSON.parse(JSON.stringify(this.customOptions))
+    })
     this.startCounting();
   }
 
