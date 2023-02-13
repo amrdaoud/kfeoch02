@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, QueryList, ViewChildren } from '@angular/core';
+import { MatFormField } from '@angular/material/form-field';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,6 +23,9 @@ export default class LanguageService {
     this.changeLanguage(lang);
     //window.location.reload();
  }
+  translate(text: string): string {
+    return this.translateService.instant(text)
+  }
  private changeLanguage(lang: string) {
   let htmlTag = this.document.getElementsByTagName("html")[0] as HTMLHtmlElement;
   //let overlayTag = htmlTag.getElementsByClassName("cdk-overlay-container")[0] as HTMLElement;

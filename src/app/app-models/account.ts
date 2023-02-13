@@ -15,6 +15,7 @@ export interface OfficeRegistrationModel {
   Email: string;
   PhoneNumber: string;
   Password: string;
+  AggreeToTerms: boolean;
 }
 export interface OfficeResetPasswordModel {
   LicenseId: number;
@@ -37,9 +38,22 @@ export interface AuthenticationModel {
   RefreshTokenDurationM: number;
   RefreshTokenExpiry: Date | string;
   OfficeId: number;
+  TokenDate: number;
+  IsEmailConfirmed: boolean;
+  MessageArabic: string | null;
 }
 export interface OfficeChangePasswordModel {
   UserName: string;
   CurrentPassword: string;
   NewPassword: string;
+}
+
+export interface ForgetSendModel {
+  Email: string;
+  ClientUri: string;
+}
+export interface ForgetReceiveModel {
+  Email: string;
+  Password: string;
+  Token: string;
 }

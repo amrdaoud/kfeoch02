@@ -1,0 +1,61 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" >
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
+  <h1 class="mat-h1" translate>
+    Add New User
+  </h1>
+  <h3 class="mat-h3" translate>
+    Register a new user
+  </h3>
+  <p translate>
+    Please fill all fields to register a new user
+  </p>
+  <mat-grid-list rowHeight="75" cols="1">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="UserName" [isAsync]="true" [formGroup]="frm" [label]="'User Name' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="Email" [isAsync]="true" [formGroup]="frm" [label]="'Email Address' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="Password" [formGroup]="frm" [label]="'Password' | translate" type="password"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="PasswordConfirm" [formGroup]="frm" [label]="'Confirm Password' | translate" type="password"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <app-select
+      controlName="Roles"
+      [formGroup]="frm"
+      [label]="'Roles' | translate"
+      [placeHolder]="'Select Role' | translate"
+      [options]="(roles$ | async)!"
+      [isLoading]="(isLoadingRoles$ | async)!"
+      optionDisplay="Name"
+      optionValue="Name"
+      [isMulty]="true"></app-select>
+      </div>
+  </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list rowHeight="60" cols="1" class="actions-container">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
+          <span translate>Save Changes</span>
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
+</div>

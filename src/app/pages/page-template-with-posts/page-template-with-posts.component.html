@@ -1,0 +1,27 @@
+<div [ngClass]="(isHandset | async) ? 'page-container-handset' : 'page-container'">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{(language$ | async) === 'ar' ? page.TitleArabic : page.TitleEnglish}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{(language$ | async) === 'ar' ? page.SubtitleArabic : page.SubtitleEnglish}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-grid-list [cols]="(isHandset | async) ? 1 : 4" rowHeight="370" *ngIf="page">
+      <mat-grid-tile *ngFor="let post of page.Posts">
+        <mat-card class="board-card">
+          <img mat-card-image [src]="post.ImageUrl">
+          <mat-card-header>
+            <mat-card-title>
+              {{(language$ | async) === 'ar' ? post.TitleArabic : post.TitleEnglish}}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{(language$ | async) === 'ar' ? post.SubtitleArabic : post.SubtitleEnglish}}
+            </mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>

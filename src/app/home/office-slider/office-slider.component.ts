@@ -1,102 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { HomeOffice } from 'src/app/app-models/office';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { HomeOffice, Office } from 'src/app/app-models/office';
 import { DeviceService } from 'src/app/app-services/device.service';
 import LanguageService from 'src/app/app-services/language.service';
 
-const items: HomeOffice[] = [
-  {
-    Id: 1,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/office-logo.png'
-  },
-  {
-    Id: 2,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 3,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 4,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 5,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 6,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 7,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 8,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 9,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 10,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 11,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 12,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 13,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 14,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  },
-  {
-    Id: 15,
-    NameEnglish: 'Office1',
-    NameArabic: 'مكتب1',
-    LogoUrl: '/assets/images/OfficeLogos/office-logo.png'
-  }
 
-]
 
 @Component({
   selector: 'app-office-slider',
@@ -104,12 +15,17 @@ const items: HomeOffice[] = [
   styleUrls: ['./office-slider.component.scss']
 })
 export class OfficeSliderComponent implements OnInit {
-  language$ = this.languageService.currentLanguage$;
+ language$ = this.languageService.currentLanguage$;
  isHandset = this.deviceService.isHandset$;
- @Input() items: any[] = items;
- @Input() value = 325;
+ searchControl  =new FormControl('');
+ @Input() items: any[] = [];
+ @Input() value1 = 325;
+ @Input() value2 = 325;
+ @Input() value3 = 325;
  @Input() language = 'en';
-  currentValue = 0;
+  currentValue1 = 0;
+  currentValue2 = 0;
+  currentValue3 = 0;
  customOptions: OwlOptions = {
   loop: true,
   autoplay: true,
@@ -134,21 +50,39 @@ export class OfficeSliderComponent implements OnInit {
   // },
 };
   constructor(private deviceService: DeviceService,
-              private languageService: LanguageService) { }
+              private languageService: LanguageService,
+              private router: Router) { }
   ngOnInit(): void {
     this.languageService.currentDirection$.subscribe(dir => {
       this.customOptions.rtl = dir ==='rtl';
       this.customOptions = JSON.parse(JSON.stringify(this.customOptions))
     })
     this.startCounting();
+    this.searchControl.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged()
+    ).subscribe(val => this.goToSearch(val!))
   }
 
   startCounting() {
     setInterval(() => {
-      if(this.currentValue < this.value) {
-        this.currentValue++
+      if(this.currentValue1 < this.value1) {
+        this.currentValue1++
+      }
+      if(this.currentValue2 < this.value2) {
+        this.currentValue2++
+      }
+      if(this.currentValue3 < this.value3) {
+        this.currentValue3++
       }
     }, 10)
+  }
+
+  goToSearch(searchQuery: string) {
+    this.router.navigate(['/site-offices'], {queryParams: {searchQuery: searchQuery}})
+  }
+  goToOfficeSite(office: Office) {
+    this.router.navigate(['/site-offices', office.Id] )
   }
 
 }

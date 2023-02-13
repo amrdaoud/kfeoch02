@@ -24,6 +24,7 @@ export class PhonesComponent implements OnInit {
   officeId = this.accountService.getOfficeId();
   isLoading = this.contactListService.isLoading;
   frm!: FormGroup;
+  label = '';
   constructor(private deviceService: DeviceService,
               private languageService: LanguageService,
               private accountService: AccountService,
@@ -33,7 +34,7 @@ export class PhonesComponent implements OnInit {
               private confirm: ConfirmService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
+    this.route.parent?.parent?.paramMap.pipe(
       map((param: ParamMap) => {
         if(param.get('id')) {
           this.officeId = +param.get('id')!;
@@ -56,7 +57,7 @@ export class PhonesComponent implements OnInit {
     if(this.frm.invalid) {
       return;
     }
-    this.confirm.open('Are you sure you want to add contact?').pipe(
+    this.confirm.open({Type: 'add'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.contactListService.addOfficeContact(this.frm.getRawValue())
@@ -69,7 +70,7 @@ export class PhonesComponent implements OnInit {
     });
   }
   delete(id: number, i: number) {
-    this.confirm.open('Are you sure you want to delete contact?').pipe(
+    this.confirm.open({Type: 'delete'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.contactListService.deleteOfficeCoontact(id)

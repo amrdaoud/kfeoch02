@@ -6,6 +6,7 @@ import { DeviceService } from '../app-services/device.service';
 import LanguageService from '../app-services/language.service';
 import * as AOS from 'aos';
 import { AccountService } from '../app-services/account.service';
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -14,20 +15,25 @@ import { AccountService } from '../app-services/account.service';
 export class NavBarComponent implements AfterViewInit {
   isHandset$ = this.deviceService.isHandset$;
   currentLanguage = this.languageService.currentLanguage$;
-  memberName = this.accountService.getAuthName();
+  memberName = this.accountService.getAuthNameAsync();
   officeId = this.accountService.getOfficeId();
   @ViewChild(MatSidenavContent) navContent!: MatSidenavContent;
   stretchMenu! : Observable<boolean>;
   dir = this.languageService.currentDirection$;
   constructor(private deviceService: DeviceService,
               private languageService: LanguageService,
-              private accountService: AccountService) { }
+              private accountService: AccountService,
+              private router: Router) { }
   changeLanguage(lang: string) {
     this.languageService.changeLangageRefresh(lang);
-    this.memberName = this.accountService.getAuthName();
   }
   ngAfterViewInit(): void {
     AOS.init();
+    this.router.events.pipe(
+      filter(x => x instanceof NavigationEnd),
+    ).subscribe(x => {
+      this.navContent.getElementRef().nativeElement.scrollTop = 0;
+    });
     this.stretchMenu = fromEvent(this.navContent.getElementRef().nativeElement,'scroll').pipe(
       map(() => {
         AOS.refresh();

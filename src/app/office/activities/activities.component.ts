@@ -33,7 +33,7 @@ export class ActivitiesComponent implements OnInit {
               private confirm: ConfirmService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
+    this.route.parent?.parent?.paramMap.pipe(
       map((param: ParamMap) => {
         if(param.get('id')) {
           this.officeId = +param.get('id')!;
@@ -64,7 +64,7 @@ export class ActivitiesComponent implements OnInit {
     if(this.frm.invalid) {
       return;
     }
-    this.confirm.open('Are you sure you want to add activity?').pipe(
+    this.confirm.open({Type: 'add'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.officeActivitiesService.addOfficeActivity(this.frm.getRawValue())
@@ -72,11 +72,11 @@ export class ActivitiesComponent implements OnInit {
     )
     .subscribe(x => {
       this.officeActivities.push(x);
-      this.frm.get('ActivityId')?.setValue('');
+      this.frm.get('ActivityId')?.reset();
     });
   }
   delete(id: number, i: number) {
-    this.confirm.open('Are you sure you want to delete activity?').pipe(
+    this.confirm.open({Type: 'delete'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.officeActivitiesService.deleteOfficeActivity(id)
@@ -87,6 +87,9 @@ export class ActivitiesComponent implements OnInit {
         this.officeActivities.splice(i,1);
       }
     });
+  }
+  getEligible(): Activity[] {
+    return this.eligibleActivities.filter(x => !this.officeActivities.map(y => y.ActivityId).includes(x.Id));
   }
 
 }

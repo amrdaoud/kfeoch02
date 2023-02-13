@@ -1,14 +1,41 @@
 
-<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" *ngIf="!isTest;else test">
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
   <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
-  <h1 class="mat-h1" translate>
-    Information
-  </h1>
+    <h1 class="mat-h1" translate>
+      Information
+    </h1>
+    <h3 class="mat-h3" translate>
+        Logo
+    </h3>
+      <p class="no-margin" translate>
+        Update your Logo
+      </p>
+      <small translate>
+        Accepted extensions .png,.jpg,.jpeg - Max Size: 5MB
+      </small>
+    <div style="width:100%; display: flex; flex-direction: column; align-items: center;">
+      <div class="logo-options-container">
+        <mat-grid-list rowHeight="80" cols="2">
+          <mat-grid-tile colspan="2" rowspan="2">
+            <div class="office-home-logo" [ngStyle]="office.LogoUrl ? {'background-image': 'url('+office.LogoUrl+')'} : {'background-image': 'none'}"></div>
+              <!-- <img class="avatar"  [src]="office.LogoUrl" alt="Avatar" onerror="this.onerror=null; this.src='assets/images/default_avatar.png';"> -->
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <button mat-button color="primary" type="button" (click)="input.click()" ><span translate>Change</span></button>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <button [disabled]="!office.LogoUrl" mat-button type="button" (click)="deleteLogo()"><span translate=>Remove</span></button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <input id="file-upload" #input [disabled]="(isLoading | async)"
+        type="file" name="fileUpload" accept=".png,.jpg,.jpeg" (change)="uploadLogo($event)"/>
+      </div>
+    </div>
   <h3 class="mat-h3" translate>
     Main Information
   </h3>
   <p translate>
-    These Information Will Be Displayed To Website Guests
+    Office Main Information
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
     <mat-grid-tile>
@@ -40,7 +67,7 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <h3 class="mat-h3" translate>
+  <!-- <h3 class="mat-h3" translate>
     Logo
   </h3>
   <p translate>
@@ -49,19 +76,18 @@
   <div class="logo-options-container">
     <mat-grid-list rowHeight="60" cols="3">
       <mat-grid-tile>
-        <div class="office-home-logo" [ngStyle]="{'background-image': 'url('+office.LogoUrl+')'}"></div>
-          <!-- <img class="avatar"  [src]="office.LogoUrl" alt="Avatar" onerror="this.onerror=null; this.src='assets/images/default_avatar.png';"> -->
+        <div class="office-home-logo" [ngStyle]="office.LogoUrl ? {'background-image': 'url('+office.LogoUrl+')'} : {'background-image': 'none'}"></div>
       </mat-grid-tile>
       <mat-grid-tile>
           <button mat-button color="primary" type="button" (click)="input.click()" ><span translate>Change</span></button>
       </mat-grid-tile>
       <mat-grid-tile>
-        <button mat-button type="button" (click)="deleteLogo()"><span translate=>Remove</span></button>
+        <button [disabled]="!office.LogoUrl" mat-button type="button" (click)="deleteLogo()"><span translate=>Remove</span></button>
       </mat-grid-tile>
     </mat-grid-list>
     <input id="file-upload" #input [disabled]="(isLoading | async)"
     type="file" name="fileUpload" accept=".png,.jpg,.jpeg" (change)="uploadLogo($event)"/>
-  </div>
+  </div> -->
 
   <h3 class="mat-h3" translate>
     Account Dates
@@ -72,35 +98,27 @@
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
     <mat-grid-tile>
       <div class="form-field-container">
-        <mat-form-field>
-          <mat-label translate>Registration Date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="RegistrationDate">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker [touchUi]="(isHandset | async)" #picker></mat-datepicker>
-        </mat-form-field>
+        <app-input type="date" controlName="RegistrationDate" [formGroup]="frm" [label]="'Registration Date' | translate"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <mat-form-field>
-          <mat-label translate>Establishment Date</mat-label>
-          <input matInput [matDatepicker]="picker2" formControlName="EstablishmentDate">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker [touchUi]="(isHandset | async)" #picker2></mat-datepicker>
-        </mat-form-field>
+        <app-input type="date" controlName="MembershipEndDate" [formGroup]="frm" [label]="'Membership Expiry' | translate"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <mat-form-field>
-          <mat-label translate>License Expiry Date</mat-label>
-          <input matInput [matDatepicker]="picker3" formControlName="LicenseEndDate">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-          <mat-datepicker [touchUi]="(isHandset | async)" #picker3></mat-datepicker>
-        </mat-form-field>
+        <app-input type="number" controlName="RenewYears" [formGroup]="frm" [label]="'Renew Years' | translate"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input type="date" controlName="EstablishmentDate" [formGroup]="frm" [label]="'Establishment Date' | translate" [matchLabel]="'License Expiry Date' | translate"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input type="date" controlName="LicenseEndDate" [formGroup]="frm" [label]="'License Expiry Date' | translate" [matchLabel]="'Establishment Date' | translate"></app-input>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
@@ -145,29 +163,34 @@
     Place Your Contact Information To Be riched
   </p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
-    <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="Email" [isAsync]="true" [formGroup]="frm" [label]="'Email Address' | translate" type="text"></app-input>
+        <app-input controlName="Email" [isAsync]="true" [formGroup]="frm" [label]="'Primary Email Address' | translate" type="text"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="text"></app-input>
+        <app-input controlName="EmailTwo" [formGroup]="frm" [label]="'Secondary Email Address' | translate" type="text"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="FaxNumber" [formGroup]="frm" [label]="'Fax Number' | translate" type="text"></app-input>
+        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Contact Phone Number' | translate" type="number"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="MailBox" [formGroup]="frm" [label]="'Maibox' | translate" type="text"></app-input>
+        <app-input controlName="FaxNumber" [formGroup]="frm" [label]="'Fax Number' | translate" type="number"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="PostalCode" [formGroup]="frm" [label]="'Postal Code' | translate" type="text"></app-input>
+        <app-input controlName="MailBox" [formGroup]="frm" [label]="'Mailbox' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="PostalCode" [formGroup]="frm" [label]="'Postal Code' | translate" type="number"></app-input>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
@@ -177,6 +200,18 @@
   <p translate>
     Your Headquarter Detailed Address
   </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="AutoNumberOne" [formGroup]="frm" [label]="'Auto Number 1' | translate" type="number"></app-input>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="AutoNumberTwo" [formGroup]="frm" [label]="'Auto Number 2' | translate" type="number"></app-input>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
     <mat-grid-tile>
       <div class="form-field-container">
@@ -201,7 +236,8 @@
             [options]="(governorates | async)!"
             [isLoading]="(governoratesLoading | async)!"
             [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
-            optionValue="Id"></app-select>
+            optionValue="Id"
+            (valueChanges)="getAreas($event)"></app-select>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
@@ -211,7 +247,7 @@
             [formGroup]="frm"
             [label]="'Area' | translate"
             [placeHolder]="'Select Area' | translate"
-            [options]="(areas | async)!"
+            [options]="(areas)!"
             [isLoading]="(areasLoading | async)!"
             [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
             optionValue="Id"></app-select>
@@ -233,9 +269,9 @@
   <p translate>
     Accept Terms & Conditions And Set Your Privacy
   </p>
-  <div class="form-field-container">
+  <!-- <div class="form-field-container" *ngIf="!office.AgreeToTerms">
     <mat-checkbox formControlName="AgreeToTerms"><span translate>I agree to the terms and conditions</span></mat-checkbox>
-  </div>
+  </div> -->
   <div class="form-field-container">
     <mat-checkbox formControlName="ShowInHome"><span translate>Show office in home</span></mat-checkbox>
   </div>
@@ -269,10 +305,4 @@
 <div class="saving-data" *ngIf="(isLoading | async)">
   <mat-spinner diameter="30"></mat-spinner>
 </div>
-<ng-template #test>
-  <div *ngIf="office">
-    <h2>Welcome {{office.NameEnglish}} - {{office.NameArabic}}</h2>
-  </div>
-  <button (click)="logOut()">Logout</button>
-</ng-template>
 

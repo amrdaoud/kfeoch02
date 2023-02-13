@@ -20,13 +20,16 @@ import { SharedModule } from '../shared/shared.module';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { SharedFormControlsModule } from '../shared-form-controls/shared-form-controls.module';
+import { NameHolderComponent } from './name-holder/name-holder.component';
 
 
 @NgModule({
   declarations: [
     OfficeMembersNavComponent,
     OfficeMemberListComponent,
-    MemberFormComponent
+    MemberFormComponent,
+    NameHolderComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatProgressSpinnerModule,
     MatCardModule,
     SharedModule,
+    SharedFormControlsModule,
     ReactiveFormsModule,
     MatGridListModule
   ]

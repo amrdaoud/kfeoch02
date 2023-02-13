@@ -1,0 +1,164 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''"
+  *ngIf="(office && office | async); let of">
+  <div style="width:100%; display: flex; flex-direction: column; align-items: center;">
+    <div class="logo-options-container">
+      <mat-grid-list rowHeight="80" cols="1">
+        <mat-grid-tile rowspan="2">
+          <div class="office-home-logo" [ngStyle]="of.LogoUrl ? {'background-image': 'url('+of.LogoUrl+')'} : {'background-image': 'none'}"></div>
+            <!-- <img class="avatar"  [src]="office.LogoUrl" alt="Avatar" onerror="this.onerror=null; this.src='assets/images/default_avatar.png';"> -->
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <h1 class="mat-h1">
+            {{(language$ | async) === 'ar' ? of.NameArabic : of.NameEnglish}}
+          </h1>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <h3 class="mat-h3" translate>
+    Main Information
+  </h3>
+  <p translate>
+    Office Main Information
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Office Type' | translate}}</mat-label>
+          <input matInput [value]="(language$ | async) === 'ar' ? of.TypeNameArabic : of.TypeNameEnglish" readonly>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <mat-form-field>
+        <mat-label>{{'Office Entity' | translate}}</mat-label>
+        <input matInput [value]="(language$ | async) === 'ar' ? of.EntityNameArabic : of.EntityNameEnglish" readonly>
+      </mat-form-field>
+    </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+      <mat-form-field>
+        <mat-label>{{'Office Legal Entity' | translate}}</mat-label>
+        <input matInput [value]="(language$ | async) === 'ar' ? of.LegalEntityNameArabic : of.LegalEntityNameEnglish" readonly>
+      </mat-form-field>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3" translate>
+    Contact Information
+  </h3>
+  <p translate>
+    Office Contact Information
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Contact Phone Number' | translate}}</mat-label>
+          <input matInput [value]="of.PhoneNumber" readonly>
+        </mat-form-field>
+      </div>
+  </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="form-field-container">
+          <mat-form-field>
+            <mat-label>{{'Primary Email Address' | translate}}</mat-label>
+            <input matInput [value]="of.Email" readonly>
+          </mat-form-field>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Fax Number' | translate}}</mat-label>
+          <input matInput [value]="of.FaxNumber" readonly>
+        </mat-form-field>
+      </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="form-field-container">
+      <mat-form-field>
+        <mat-label>{{'Mailbox' | translate}}</mat-label>
+        <input matInput [value]="of.MailBox" readonly>
+      </mat-form-field>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="form-field-container">
+      <mat-form-field>
+        <mat-label>{{'Postal Code' | translate}}</mat-label>
+        <input matInput [value]="of.PostalCode" readonly>
+      </mat-form-field>
+    </div>
+  </mat-grid-tile>
+  </mat-grid-list>
+  <h3 class="mat-h3" translate>
+    Location & Address
+  </h3>
+  <p translate>
+    Office Detailed Address
+  </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Country' | translate}}</mat-label>
+          <input matInput [value]="(language$ | async) === 'ar' ? of.CountryNameArabic : of.CountryNameEnglish" readonly>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Governorate' | translate}}</mat-label>
+          <input matInput [value]="(language$ | async) === 'ar' ? of.GovernorateNameArabic : of.CountryNameEnglish" readonly>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Area' | translate}}</mat-label>
+          <input matInput [value]="(language$ | async) === 'ar' ? of.AreaNameArabic : of.AreaNameEnglish" readonly>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 3" rowspan="2">
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label translate>Address</mat-label>
+          <textarea matInput [value]="of.Address" readonly></textarea>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Auto Number 1' | translate}}</mat-label>
+          <input matInput [value]="of.AutoNumberOne" readonly>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <mat-form-field>
+          <mat-label>{{'Auto Number 2' | translate}}</mat-label>
+          <input matInput [value]="of.AutoNumberTwo" readonly>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="btn-search">
+    <button mat-raised-button color="primary" routerLink="/site-offices">
+      <mat-icon>search</mat-icon> <span translate>Back to Search Page</span>
+    </button>
+  </div>
+
+</div>
+

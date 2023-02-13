@@ -1,0 +1,109 @@
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav  [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
+    <mat-toolbar>
+      <span translate>Site Content</span>
+    </mat-toolbar>
+    <mat-action-list>
+      <button mat-list-item routerLink="reference-and-objectives" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Reference & Objectives</h3>
+          <p mat-line translate>
+            Reference & Objectives Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="statute-and-regulations" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Statute & Regulations</h3>
+          <p mat-line translate>
+            Statute & Regulations Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="conditions" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Conditions of Registration</h3>
+          <p mat-line translate>
+            Conditions of Registration Page
+          </p>
+      </button>
+
+      <button mat-list-item routerLink="policy" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Usage Policy</h3>
+          <p mat-line translate>
+            Usage Policy Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="property" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Intellectual Property</h3>
+          <p mat-line translate>
+            Intellectual Property Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="sitemap" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Sitemap</h3>
+          <p mat-line translate>
+            Sitemap Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="questions" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">article</span>
+          <h3 mat-line mat-h3 translate>Q&A Common Questions</h3>
+          <p mat-line translate>
+            Q&A Common Questions Page
+          </p>
+      </button>
+
+      <button mat-list-item routerLink="chairman-word" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">contact_page</span>
+          <h3 mat-line mat-h3 translate>Chairman Word</h3>
+          <p mat-line translate>
+            Chairman Word Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="board" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">group</span>
+          <h3 mat-line mat-h3 translate>Board Of Directors</h3>
+          <p mat-line translate>
+            Board Of Directors Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="courses" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">school</span>
+          <h3 mat-line mat-h3 translate>Courses & Seminars</h3>
+          <p mat-line translate>
+            Courses & Seminars Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="news" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">newspaper</span>
+          <h3 mat-line mat-h3 translate>News</h3>
+          <p mat-line translate>
+            News Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="photos" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">photo_library</span>
+          <h3 mat-line mat-h3 translate>Picture Library</h3>
+          <p mat-line translate>
+            Picture Library Page
+          </p>
+      </button>
+      <button mat-list-item routerLink="videos" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">movie</span>
+          <h3 mat-line mat-h3 translate>Video Library</h3>
+          <p mat-line translate>
+            Video Library Page
+          </p>
+      </button>
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

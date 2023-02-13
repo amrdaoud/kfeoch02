@@ -1,0 +1,59 @@
+<div [ngClass]="(isHandset | async) ? 'page-container-handset' : 'page-container'">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{(language$ | async) === 'ar' ? page.TitleArabic : page.TitleEnglish}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{(language$ | async) === 'ar' ? page.SubtitleArabic : page.SubtitleEnglish}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <ng-container *ngIf="page.HostUrl === 'news'">
+    <mat-grid-list rowHeight="70" cols="1">
+      <mat-grid-tile>
+        <form [formGroup]="frm">
+        <div class="search-container-news">
+          <div class="search-with-select">
+            <mat-form-field appearance="outline">
+              <mat-icon matPrefix class="force-ltr" color="primary">search</mat-icon>
+                <mat-label translate="">Search</mat-label>
+                <input matInput type="text" formControlName="SearchQuery" [placeholder]="'Search' | translate">
+             <mat-select class="ampm" [placeholder]="'Select Category' | translate" formControlName="CategoryId">
+                  <mat-option value=""><span translate>All News</span></mat-option>
+                  <mat-option [value]="category.Id" *ngFor="let category of categories | async">
+                    {{(language$ | async) === 'ar' ? category.NameArabic : category.NameEnglish}}
+                  </mat-option>
+             </mat-select>
+           </mat-form-field>
+        </div>
+        </div>
+      </form>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-container>
+    <mat-divider></mat-divider>
+    <mat-grid-list [cols]="(isHandset | async) ? 1 : 2" rowHeight="350" *ngIf="page">
+      <mat-grid-tile *ngFor="let post of filteredPosts">
+        <app-news-card
+          [newsDate]="post.PublishDate"
+          [newsHeadline]="(language$ | async) === 'ar' ? post.TitleArabic : post.TitleEnglish"
+          [newsImgUrl]="post.ImageUrl"
+          [newsText]="(language$ | async) === 'ar' ? post.SubtitleArabic: post.SubtitleEnglish"
+          (readMore)="goToPost(post)"
+          >
+        </app-news-card>
+        <!-- <mat-card class="board-card">
+          <img mat-card-image [src]="post.ImageUrl">
+          <mat-card-header>
+            <mat-card-title>
+              {{(language$ | async) === 'ar' ? post.TitleArabic : post.TitleEnglish}}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{(language$ | async) === 'ar' ? post.SubtitleArabic : post.SubtitleEnglish}}
+            </mat-card-subtitle>
+          </mat-card-header>
+        </mat-card> -->
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>

@@ -11,17 +11,17 @@ export class AsyncValidatorsService {
   private accountUrl = environment.apiUrl + 'account/';
   constructor(private http: HttpClient) { }
 
-  validateOfficeUserId(checkControlName: string, isType: boolean, current?: string): AsyncValidatorFn {
+  validateOfficeUserId(checkControlName: string, isType: boolean, current?: string, currentCheck?: string): AsyncValidatorFn {
     return (control: AbstractControl) => {
       const checkControl = control.parent?.get(checkControlName);
       if(!checkControl || checkControl.value === '') {
         return of(null);
       }
-      if(current?.toString()?.toLowerCase() === control.value.toString().toLowerCase()) {
+      if(current?.toString()?.toLowerCase() === control.value.toString().toLowerCase() && currentCheck?.toString()?.toLowerCase() === checkControl.value.toString()) {
         return of(null);
       }
       if(isType) {
-        checkControl.setValue('');
+        checkControl.updateValueAndValidity();
         return of(null);
       }
       const officeTypeId = isType ? control.value : checkControl?.value;
@@ -62,6 +62,18 @@ export class AsyncValidatorsService {
         return of(null);
       }
       return this.http.get<boolean>(this.accountUrl + 'check-email?value=' + control.value).pipe(
+        map(res => res ? {isTaken: true} : null),
+        catchError(() => of({connection: true}))
+      );
+    }
+  }
+
+  validateUserName(current?: string): AsyncValidatorFn {
+    return (control: AbstractControl) => {
+      if(current?.toString()?.toLowerCase() === control.value.toString().toLowerCase()) {
+        return of(null);
+      }
+      return this.http.get<boolean>(this.accountUrl + 'check-username?value=' + control.value).pipe(
         map(res => res ? {isTaken: true} : null),
         catchError(() => of({connection: true}))
       );

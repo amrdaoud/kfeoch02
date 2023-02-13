@@ -1,0 +1,16 @@
+<div [ngClass]="(isHandset | async) ? 'page-container-handset' : 'page-container'" >
+  <mat-card>
+    <img mat-card-image class="news-post-img" [src]="(post$ | async)?.ImageUrl">
+    <mat-card-header>
+      <mat-card-title>
+        {{(language$ | async) === 'ar' ? (post$ | async)?.TitleArabic : (post$ | async)?.TitleEnglish}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{(language$ | async) === 'ar' ? (post$ | async)?.SubtitleArabic : (post$ | async)?.SubtitleEnglish}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="page-body page-with-padding" [innerHTML]="((language$ | async) === 'ar' ? (post$ | async)?.BodyArabic : (post$ | async)?.BodyEnglish) | safeHtml"></div>
+    </mat-card-content>
+  </mat-card>
+</div>

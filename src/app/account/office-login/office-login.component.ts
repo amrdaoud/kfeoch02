@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from 'src/app/app-services/account.service';
+import { DictionaryService } from 'src/app/app-services/dictionary.service';
 import LanguageService from 'src/app/app-services/language.service';
 
 @Component({
@@ -13,29 +14,25 @@ import LanguageService from 'src/app/app-services/language.service';
 export class OfficeLoginComponent implements OnInit {
   language$ = this.languageService.currentLanguage$;
   frm = this.accountService.createOfficeLoginForm();
-  officeTypes = this.accountService.officeTypes;
-  officeTypesLoading = this.accountService.officeTypesLoading;
+  officeTypes = this.dictionaryService.officeTypes;
+  officeTypesLoading = this.dictionaryService.officeTypesLoading;
   isLogging = this.accountService.isLogging;
   language = this.languageService.currentLanguage;
+  returnUrl: string;
   constructor(private accountService: AccountService,
+              private dictionaryService: DictionaryService,
               private languageService: LanguageService,
-              private snackBar: MatSnackBar,
-              private router: Router,
-              private translateService: TranslateService) { }
+              route: ActivatedRoute
+              ) {
+                this.returnUrl = route.snapshot.queryParams['returnUrl']
+              }
   ngOnInit(): void {
   }
   login() {
     if(this.frm.invalid) {
       return;
     }
-    this.accountService.httpOfficeLogin(this.frm.value).subscribe(x => {
-      if(x && x.IsAuthenticated) {
-        this.router.navigateByUrl('/office/home/information');
-      }
-      else {
-        this.snackBar.open(this.translateService.instant('Please Check Type, License or Password!'),this.translateService.instant('Dismiss'),{duration: 2000})
-      }
-    })
+    this.accountService.httpOfficeLogin(this.frm.value, this.returnUrl).subscribe();
   }
 
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   apiUrl: 'https://kfeoch-api.techteec.net/api/',
-  test: true,
+  test: false,
   production: false,
   baseHref: '/'
 };

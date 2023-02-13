@@ -1,0 +1,45 @@
+<mat-form-field *ngIf="type === 'text-area'; else inputControl">
+  <mat-label>
+    {{label}}
+  </mat-label>
+  <textarea [rows]="lines" matInput #inputControl  [type]="type" [formControl]="formControl" [placeholder]="placeHolder">
+  </textarea>
+  <div matSuffix style="width:20px;">
+    <mat-icon class="force-ltr" matSuffix color="primary" *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+    <mat-spinner matSuffix color="primary" diameter=20 *ngIf="(isAsync && formControl.pending)"></mat-spinner>
+  </div>
+  <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+    {{getErrors() | translate}}
+  </mat-error>
+</mat-form-field>
+<ng-template #inputControl>
+<mat-form-field *ngIf="type !== 'date'; else dateControl">
+  <mat-label>
+    {{label}}
+  </mat-label>
+  <input matInput #inputControl
+  style="min-height:16px;" [type]="type"
+  [ngStyle]="controlName.toLowerCase().includes('arabic') ? {'font-family': 'Droid Arabic Kufi'} : {'font-family': 'Roboto'}"
+  [formControl]="formControl"
+  [placeholder]="placeHolder">
+  <div matSuffix style="width:20px;">
+    <mat-icon class="force-ltr" matSuffix color="primary" *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+    <mat-spinner matSuffix color="primary" diameter=20 *ngIf="isAsync && formControl.pending"></mat-spinner>
+  </div>
+  <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+    {{getErrors() | translate}}
+  </mat-error>
+</mat-form-field>
+<ng-template #dateControl>
+  <mat-form-field>
+    <mat-label translate>{{label}}</mat-label>
+    <input matInput [matDatepicker]="picker2" [formControl]="formControl" [placeholder]="placeHolder">
+    <mat-hint>M/D/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker [touchUi]="(isHandset | async)" #picker2></mat-datepicker>
+    <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+      {{getErrors() | translate}}
+    </mat-error>
+  </mat-form-field>
+</ng-template>
+</ng-template>

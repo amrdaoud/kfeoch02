@@ -8,28 +8,41 @@
 }
 .news-card {
   width: 90%;
-  height: 320;
+  min-height: 320;
   padding: 0px !important;
+
 }
+
 .news-card:hover {
   @include mat.elevation(8);
 }
 .news-card img {
   height:100%;
+  object-fit: cover;
 }
 .news-card .news-text {
   width:100%;
   padding: 20px;
   text-overflow: ellipsis;
+  font-size: 12px;
 }
 .news-card .news-date {
   color: #555;
   font-size: 12px;
 }
 .news-card .news-title {
-  font-weight: 400;
-  font-size: 24px;
-  letter-spacing: 1px;
+  // display: block;
+  // overflow: hidden;
+  font-weight: 500;
+  font-size: 14px;
+  max-width: 100%;
+  // white-space: nowrap;
+  // text-overflow: ellipsis;
+  line-height: 1.5em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .news-card .news-btn {
   width:100%;

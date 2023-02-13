@@ -1,0 +1,30 @@
+<div [ngClass]="(isHandset | async) ? 'page-container-handset' : 'page-container'">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{(language$ | async) === 'ar' ? page.TitleArabic : page.TitleEnglish}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{(language$ | async) === 'ar' ? page.SubtitleArabic : page.SubtitleEnglish}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- <mat-grid-list rowHeight="600" [cols]="(isHandset | async) ? 1 : 2">
+        <mat-grid-tile>
+          <div class="page-body" [innerHTML]="(language$ | async) === 'ar' ? page.BodyArabic : page.BodyEnglish"></div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <img [src]="page.ImageUrl + '?r' + nowDate" style="height:100%">
+        </mat-grid-tile>
+      </mat-grid-list> -->
+      <div [ngClass]="(isHandset | async) ? 'page-with-photo-in-card-handset ' : 'page-with-photo-in-card'">
+        <div class="page-body padding-right" [innerHTML]="(language$ | async) === 'ar' ? page.BodyArabic : page.BodyEnglish">
+        </div>
+        <div>
+          <img class="chairman mat-elevation-z8" [src]="page.ImageUrl + '?r' + nowDate">
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

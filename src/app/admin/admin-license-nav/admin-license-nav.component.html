@@ -1,0 +1,23 @@
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav  [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
+    <mat-toolbar>
+      <span translate>Licenses</span>
+    </mat-toolbar>
+    <mat-action-list>
+      <button mat-list-item routerLink="pending-licenses" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">description</span>
+          <h3 mat-line mat-h3 translate>Pending Licenses</h3>
+          <p mat-line translate>
+            List all pending licenses and Approve of reject
+          </p>
+      </button>
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

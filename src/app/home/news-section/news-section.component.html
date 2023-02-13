@@ -2,42 +2,17 @@
 <div class="section-title">
   <div class="title-text" translate>Latest News</div>
 </div>
-  <mat-grid-list rowHeight="370" [cols]="(isHandset | async) ? 1 : 2" gutterSize="10" class="news-container">
-    <mat-grid-tile>
+  <mat-grid-list rowHeight="350" [cols]="(isHandset | async) ? 1 : 2" gutterSize="10" class="news-container" *ngIf="news | async">
+    <mat-grid-tile *ngFor="let post of news | async">
       <app-news-card
-      [newsDate] = "'Fri Jun 19 2020'"
-      [newsCategory] = "'Category'"
-      [newsHeadline] = "'Post 1 Headline'"
-      [newsText] = "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida, nibh eget pharetra pulvinar, nulla nibh porttitor nulla, in vulputate lacus mauris eget ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras faucibus, ante id pellentesque auctor, est nisi sodales mauris, sed interdum justo.'"
-      [newsImgUrl] = "'assets/images/Slider/carousel-1.jpg'"
-      [isHandset]="isHandset"></app-news-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <app-news-card
-      [newsDate] = "'Fri Jun 19 2020'"
-      [newsCategory] = "'Category'"
-      [newsHeadline] = "'Post 1 Headline'"
-      [newsText] = "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida, nibh eget pharetra pulvinar, nulla nibh porttitor nulla, in vulputate lacus mauris eget ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras faucibus, ante id pellentesque auctor, est nisi sodales mauris, sed interdum justo.'"
-      [newsImgUrl] = "'assets/images/Slider/carousel-1.jpg'"
-      [isHandset]="isHandset"></app-news-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <app-news-card
-      [newsDate] = "'Fri Jun 19 2020'"
-      [newsCategory] = "'Category'"
-      [newsHeadline] = "'Post 1 Headline'"
-      [newsText] = "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida, nibh eget pharetra pulvinar, nulla nibh porttitor nulla, in vulputate lacus mauris eget ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras faucibus, ante id pellentesque auctor, est nisi sodales mauris, sed interdum justo.'"
-      [newsImgUrl] = "'assets/images/Slider/carousel-1.jpg'"
-      [isHandset]="isHandset"></app-news-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <app-news-card
-      [newsDate] = "'Fri Jun 19 2020'"
-      [newsCategory] = "'Category'"
-      [newsHeadline] = "'Post 1 Headline'"
-      [newsText] = "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida, nibh eget pharetra pulvinar, nulla nibh porttitor nulla, in vulputate lacus mauris eget ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras faucibus, ante id pellentesque auctor, est nisi sodales mauris, sed interdum justo.'"
-      [newsImgUrl] = "'assets/images/Slider/carousel-1.jpg'"
-      [isHandset]="isHandset"></app-news-card>
+      [newsDate]="post.PublishDate"
+      [newsCategory]="(language$ | async)==='ar' ? post.CategoryNameArabic : post.CategoryNameEnglish"
+      [newsHeadline]="(language$ | async) === 'ar' ? post.TitleArabic : post.TitleEnglish"
+      [newsImgUrl]="post.ImageUrl"
+      [newsText]="(language$ | async) === 'ar' ? post.SubtitleArabic: post.SubtitleEnglish"
+      (readMore)="goToPost(post)"
+      >
+    </app-news-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

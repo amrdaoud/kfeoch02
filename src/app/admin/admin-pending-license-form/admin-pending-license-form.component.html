@@ -1,0 +1,141 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="approve()">
+    <h1 class="mat-h1">
+      <span translate>Manage License</span> #{{model.Id}}
+    </h1>
+    <h3 translate>
+      License Document
+    </h3>
+    <p class="no-margin" translate>
+      Upload License Document
+    </p>
+    <div style="width:100%; display: flex; flex-direction: column; align-items: center;">
+      <div class="document-container">
+        <mat-grid-list rowHeight="80" cols="2">
+          <mat-grid-tile colspan="2" rowspan="2">
+            <div class="license-document">
+                <!-- <mat-icon class="material-icons-outlined accent-color">architecture</mat-icon> -->
+                <span *ngIf="model?.DocumentUrl; else noFile" (click)="downloadFile()">
+                  <span class="material-symbols-outlined clickable" *ngIf="!(downloadingFile$.get(model.Id) | async); else downloading">description</span>
+                </span>
+                <ng-template #noFile>
+                <span translate>
+                  No File
+                </span>
+              </ng-template>
+              <ng-template #downloading>
+                <mat-progress-spinner mat-list-icon [value]="downloadingFile$.get(model.Id) | async" diameter="50"></mat-progress-spinner>
+              </ng-template>
+            </div>
+              <!-- <img class="avatar"  [src]="office.LogoUrl" alt="Avatar" onerror="this.onerror=null; this.src='assets/images/default_avatar.png';"> -->
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+              <button mat-button color="primary" type="button" (click)="downloadFile()" [disabled]="!model.DocumentUrl || (downloadingFile$.get(model.Id) | async)">
+                <mat-icon>visibility</mat-icon><span translate>Preview File</span>
+              </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <input id="file-upload" #input [disabled]="(isLoading | async)"
+        type="file" name="fileUpload" accept=".pdf"/>
+      </div>
+    </div>
+    <h3 class="mat-h3" translate>
+      Main Information
+    </h3>
+    <p translate>
+      License Main Information
+    </p>
+    <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input type="date" controlName="StartDate" [formGroup]="frm" [label]="'License Start Date' | translate" [matchLabel]="'License Expiry Date' | translate"></app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input type="date" controlName="EndDate" [formGroup]="frm" [label]="'License Expiry Date' | translate" [matchLabel]="'License Start Date' | translate"></app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+        <app-select
+              controlName="OfficeEntityId"
+              [formGroup]="frm"
+              [label]="'Office Entity' | translate"
+              [placeHolder]="'Select Entity' | translate"
+              [options]="(officeEntities | async)!"
+              [isLoading]="(officeEntitiesLoading | async)!"
+              [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+              optionValue="Id"></app-select>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+        <app-select
+              controlName="Specialities"
+              [formGroup]="frm"
+              [label]="'Office Specialities' | translate"
+              [placeHolder]="'Select Specialities' | translate"
+              [options]="eligibleSpecialities"
+              [isLoading]="(officeSpecialitiesLoading | async)!"
+              [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+              [isMulty]="true"
+              optionValue="same"></app-select>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 2" rowspan="2">
+        <div class="form-field-container">
+          <mat-form-field>
+            <mat-label translate>Note</mat-label>
+            <textarea matInput formControlName="Note"></textarea>
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+      <div *ngIf="paymentInfo && !(isLoadingPayments | async)">
+        <h3 class="mat-h3" translate>
+          Payment Information
+        </h3>
+        <p translate>
+          Office Payment Information
+        </p>
+        <h4 class="mat-h5"><span translate>Membership Status</span>: {{(language$ | async) === 'ar' ? paymentInfo.StatusNameArabic : paymentInfo.StatusNameEnglish}}</h4>
+        <h4 class="mat-h5"><span translate>Membership Expiry Date</span>: {{paymentInfo.CurrentMembershipEndDate ?  (paymentInfo.CurrentMembershipEndDate | localizedDate) : ''}}</h4>
+        <h4 class="mat-h5"><span translate>Membership Will Extend To</span>: {{paymentInfo.NextMembershipEndDate ?  (paymentInfo.NextMembershipEndDate | localizedDate) : ''}}</h4>
+        <mat-list dense>
+          <mat-list-item *ngFor="let paymentDetail of paymentInfo.Payments">
+            <p matListIcon><mat-icon>payments</mat-icon></p>
+            <p matLine>{{(language$ | async) === 'ar' ? paymentDetail.RequestNameArabic : paymentDetail.RequestNameEnglish}}:</p>
+            <p matLine>{{paymentDetail.Amount | localizedCurrency}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="mat-h3">
+            <span translate>Total Amount</span>: {{paymentInfo.TotalAmount | localizedCurrency}}
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div style="width:100%; display: flex; flex-direction: column; align-items: center;" *ngIf="isLoadingPayments | async">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span translate>Loading Payment Information</span>
+      </div>
+    <mat-grid-list rowHeight="60" cols="2" class="actions-container">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async) || !model.DocumentUrl || (model.IsFirst && !paymentInfo) || (isLoadingPayments | async)">
+            <span translate>APPROVE</span> <span *ngIf="!model.DocumentUrl"> (<span translate>No Ducument</span>)</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button color="warn" type="button" (click)="reject()" [disabled]="(isLoading | async) || (isLoadingPayments | async)">
+            <span translate>REJECT</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
+</div>

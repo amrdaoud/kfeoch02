@@ -7,6 +7,7 @@ export interface OfficeMember {
   NationalId: string;
   SemId: string;
   SpecialityId: number;
+  PositionId: number;
   ExperienceYears: number;
   SignatureUrl: string;
   CvUrl: string;
@@ -14,12 +15,18 @@ export interface OfficeMember {
   IsApproved: boolean;
   IsDeleted: boolean;
   Documents: MemberDocument[];
+  PhoneNumber: string;
+  Email: string;
+  NationalityId: number;
+  PhoneNumberTwo: string;
 }
 
 export interface MemberDocument {
   Id: number;
   NameArabic: string;
   NameEnglish: string;
+  HasForm: boolean;
+  FormUrl: string;
   Files: MemberFile[];
 }
 export interface MemberFile {
@@ -45,4 +52,9 @@ export interface OfficeMemberViewModel {
   ExperienceYears: number;
   IsApproved: boolean;
   IsDeleted: boolean;
+  PhoneNumber: string;
+  Email: string;
+  NationalityNameArabic: string;
+  NationalityNameEnglish: string;
+
 }

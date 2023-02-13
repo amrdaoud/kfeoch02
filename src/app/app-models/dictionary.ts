@@ -1,3 +1,6 @@
+import { FormGroup } from "@angular/forms";
+import { Observable } from "rxjs";
+
 export interface OfficeType {
   Id: number;
   NameArabic: string | null;
@@ -37,7 +40,7 @@ export interface Governorate {
   NameEnglish: string;
   DescriptionArabic: string;
   DescriptionEnglish: string;
-  CountryId: number;
+  ParentId: number;
 }
 export interface Area {
   Id: number;
@@ -45,7 +48,7 @@ export interface Area {
   NameEnglish: string;
   DescriptionArabic: string;
   DescriptionEnglish: string;
-  GovernorateId: number;
+  ParentId: number;
 }
 export interface Gender {
   Id: number;
@@ -58,8 +61,21 @@ export interface Specialty {
   NameEnglish: string;
   DescriptionArabic: string;
   DescriptionEnglish: string;
-  OfficeTypeId: number;
+  ParentId: number;
   IsDeleted: boolean;
+}
+export interface Position {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  IsDeleted: boolean;
+}
+export interface Nationality {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
 }
 
 export interface Activity {
@@ -68,7 +84,7 @@ export interface Activity {
   NameEnglish: string;
   DescriptionArabic: string;
   DescriptionEnglish: string;
-  OfficeTypeId: number;
+  ParentId: number;
   IsDeleted: boolean;
 }
 export interface ContactType {
@@ -78,4 +94,75 @@ export interface ContactType {
   DescriptionArabic: string;
   DescriptionEnglish: string;
   IsDeleted: boolean;
+  Visible?: boolean;
+}
+export interface DocumentType {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  IsDeleted: boolean;
+}
+export interface PostCategory {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  IsDeleted: boolean;
+}
+export interface RequestType {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  Amount: number;
+  IsDeleted: boolean;
+}
+
+export interface CertificateEntity {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  IsDeleted: boolean;
+}
+// export interface DictionaryTemplate {
+//   Id: number;
+//   NameArabic: string;
+//   NameEnglish: string;
+//   DescriptionArabic: string;
+//   DescriptionEnglish: string;
+//   IsDeleted: boolean;
+// }
+
+export interface DictionaryModel {
+  Id: number;
+  NameArabic: string;
+  NameEnglish: string;
+  DescriptionArabic: string;
+  DescriptionEnglish: string;
+  ParentId: number;
+  IsDeleted: boolean;
+}
+
+export class DictionaryTemplate {
+  constructor(
+    public urlName: string,
+    public name: string,
+    public data: Observable<any>,
+    public dataLoading: Observable<boolean>,
+    public haveParent: boolean,
+    public frm: FormGroup,
+    public parentData?:Observable<any>,
+    public parentLabel?: string,
+    public parentLoading?: Observable<boolean>,
+    public haveNumberProperty?: boolean,
+    public numberPropertyName?: string,
+    public numberPropertyLabel?: string
+  ){}
+
 }

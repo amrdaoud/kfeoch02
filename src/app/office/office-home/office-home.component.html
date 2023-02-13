@@ -1,5 +1,5 @@
 <mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
-  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer [ngClass]="isTest ? 'hide' : ''">
+  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
     <mat-toolbar>
       <span translate>Office Account</span>
     </mat-toolbar>
@@ -39,7 +39,7 @@
             Add & Update office contact list
           </p>
       </button>
-      <button mat-list-item routerLink="security" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+      <button *ngIf="!isAdmin" mat-list-item routerLink="security" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
         <span mat-list-icon class="material-symbols-outlined">key</span>
           <h3 mat-line mat-h3 translate>Security</h3>
           <p mat-line translate>
@@ -49,7 +49,10 @@
     </mat-action-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button mat-icon-button class="upper-left" (click)="drawer.toggle()" *ngIf="(isHandset | async)"><mat-icon>menu</mat-icon></button>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
     <router-outlet>
     </router-outlet>
   </mat-sidenav-content>

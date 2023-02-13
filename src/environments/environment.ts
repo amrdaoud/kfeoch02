@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: 'https://localhost:7265/api/',
+  // apiUrl: 'https://localhost:7265/api/',
+  apiUrl: 'https://kfeoch-api.techteec.net/api/',
   production: false,
   test: false,
   baseHref: '/'

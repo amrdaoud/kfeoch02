@@ -25,6 +25,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
+              "src/logo.ico",
               "src/assets",
               "src/web.config"
             ],
@@ -56,7 +57,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -94,6 +95,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
+              "src/logo.ico",
               "src/assets",
               "src/web.config"
             ],
@@ -125,7 +127,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -180,6 +182,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
+              "src/logo.ico",
               "src/assets",
               "src/Web.config"
             ],
@@ -191,5 +194,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

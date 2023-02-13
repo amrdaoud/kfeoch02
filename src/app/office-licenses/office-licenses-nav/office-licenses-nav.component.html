@@ -1,0 +1,47 @@
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
+    <mat-toolbar>
+      <span translate>Office Licenses</span>
+    </mat-toolbar>
+    <mat-action-list>
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="list" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">task</span>
+          <h3 mat-line mat-h3 translate>List Of Licenses</h3>
+          <p mat-line translate>
+            List & view my licenses
+          </p>
+      </button>
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="add" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">Add</span>
+          <h3 mat-line mat-h3 translate>Add New License</h3>
+          <p mat-line translate>
+            Add New License
+          </p>
+      </button>
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="membership" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">refresh</span>
+          <h3 mat-line mat-h3 translate>Membership Information</h3>
+          <p mat-line translate>
+            Check My Membership Information
+          </p>
+      </button>
+
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="payments" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">history</span>
+          <h3 mat-line mat-h3 translate>My Renewals</h3>
+          <p mat-line translate>
+            List & view my renewals
+          </p>
+      </button>
+
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
+    <router-outlet>
+    </router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

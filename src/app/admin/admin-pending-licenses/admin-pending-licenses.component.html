@@ -1,0 +1,19 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" >
+  <h1 class="mat-h1" translate>
+    Pending Licenses
+  </h1>
+  <h3 class="mat-h3" translate>
+    List of all pending licenses
+  </h3>
+  <p translate>
+    Click on license to show details
+  </p>
+  <app-dynamic-data-table
+  [data]="licenses"
+  [language$]="language$"
+  [isLoading]="isLoading"
+  [columnsDef]="columns"
+  (rowClicked)="goToLicense($event)"
+  [clickable]="true"
+  ></app-dynamic-data-table>
+</div>

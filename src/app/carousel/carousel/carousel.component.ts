@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CarouselItem } from 'src/app/app-models/carousel';
+import LanguageService from 'src/app/app-services/language.service';
 const items: CarouselItem[] = [
   {
     ImageSrc:
@@ -7,7 +8,8 @@ const items: CarouselItem[] = [
     ImageAlt: 'nature1',
     Title: 'Conditions for registering the office',
     SubTitle: 'For details please visit the registration conditions page',
-    btnText: 'Read More'
+    btnText: 'Read More',
+    routerLink: '/pages/reference-and-objectives'
   },
   {
     ImageSrc:
@@ -15,7 +17,8 @@ const items: CarouselItem[] = [
       ImageAlt: 'nature2',
       Title: 'Connect with us',
       SubTitle: 'For details please visit the registration conditions page',
-      btnText: 'Read More'
+      btnText: 'Read More',
+      routerLink: '/pages/contact-us'
   },
   {
     ImageSrc:
@@ -23,7 +26,8 @@ const items: CarouselItem[] = [
       ImageAlt: 'person1',
       Title: 'Board of Directors',
       SubTitle: 'For details please visit the registration conditions page',
-      btnText: 'Read More'
+      btnText: 'Read More',
+      routerLink: '/pages/board'
   }
 ];
 
@@ -33,8 +37,9 @@ const arabicItems: CarouselItem[] = [
     '/assets/images/Slider/carousel-1.jpg',
     ImageAlt: 'nature1',
     Title: 'شروط تسجيل المكتب باتحاد المكاتب الهندسية',
-    SubTitle: 'للاطلاع على التفاصيل يرجى زيارة صفحة شروط التسجيل',
-    btnText: 'اقرأ المزيد'
+    SubTitle: 'للاطلاع على+ التفاصيل يرجى زيارة صفحة شروط التسجيل',
+    btnText: 'اقرأ المزيد',
+    routerLink: '/pages/reference-and-objectives'
   },
   {
     ImageSrc:
@@ -42,7 +47,8 @@ const arabicItems: CarouselItem[] = [
       ImageAlt: 'nature2',
       Title: 'تواصل معنا',
       SubTitle: 'يمكنكم التواصل معنا',
-      btnText: 'اقرأ المزيد'
+      btnText: 'اقرأ المزيد',
+      routerLink: '/pages/contact-us'
   },
   {
     ImageSrc:
@@ -50,7 +56,8 @@ const arabicItems: CarouselItem[] = [
       ImageAlt: 'person1',
       Title: 'مجلس الادارة',
       SubTitle: 'مجلس ادارة اتحاد المكاتب الهندسية والدور الاستشارية الكويتية',
-      btnText: 'اقرأ المزيد'
+      btnText: 'اقرأ المزيد',
+      routerLink: '/pages/board'
   }
 ]
 @Component({

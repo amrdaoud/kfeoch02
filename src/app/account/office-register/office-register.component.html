@@ -44,7 +44,7 @@
           <app-input controlName="Email" [isAsync]="true" [formGroup]="frm" [label]="'Email Address' | translate" type="text"></app-input>
         </mat-grid-tile>
         <mat-grid-tile>
-          <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="text"></app-input>
+          <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="number"></app-input>
         </mat-grid-tile>
         <mat-grid-tile>
           <app-input controlName="Password" [formGroup]="frm" [label]="'Password' | translate" type="password"></app-input>
@@ -53,9 +53,13 @@
           <app-input controlName="PasswordConfirm" [formGroup]="frm" [label]="'Confirm Password' | translate" type="password"></app-input>
         </mat-grid-tile>
       </mat-grid-list>
+      <div class="form-field-container" style="padding-left: 30px; margin-bottom: 20px;">
+        <mat-checkbox formControlName="AggreeToTerms"></mat-checkbox>
+        <span style="margin-left: 5px;"><span translate>I agree to the </span><a href="javascript:void(0);" (click)="openTerms()" translate="">terms and conditions</a></span>
+      </div>
     </div>
       <div class="align-items-center">
-        <button [disabled]="frm.invalid || frm.pending || (isRegistering | async)" mat-raised-button color="primary" style="width:90%">
+        <button [disabled]="frm.invalid || frm.pending || (isRegistering | async) || !aggree" mat-raised-button color="primary" style="width:90%">
           <span translate>Register</span></button>
       </div>
       <div class="align-items-center">

@@ -1,0 +1,21 @@
+<!-- <div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" *ngIf="page">
+  <h1 class="mat-h1" translate>
+    {{page.Title}}
+  </h1>
+  <h3 class="mat-h3" translate>
+      {{page.Subtitle}}
+  </h3>
+</div> -->
+<mat-progress-bar *ngIf="isLoading | async" mode="query"></mat-progress-bar>
+<div *ngIf="page" [ngSwitch]="page.Template">
+  <img class="page-header" [src]="imageUrlEnglish">
+  <app-page-template-no-photo *ngSwitchCase="'No Photo'" [page]="page">
+  </app-page-template-no-photo>
+  <app-page-template-with-photo *ngSwitchCase="'Side Photo'" [page]="page">
+  </app-page-template-with-photo>
+  <app-page-template-with-posts *ngSwitchCase="'Grid'" [page]="page">
+  </app-page-template-with-posts>
+  <app-page-template-news *ngSwitchCase="'News'" [page]="page">
+  </app-page-template-news>
+  <div *ngSwitchDefault>No Content Found</div>
+</div>

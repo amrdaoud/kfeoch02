@@ -1,0 +1,111 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" >
+  <h1 class="mat-h1" translate>
+    User profile info in KFEOCH
+  </h1>
+  <ng-container *ngIf="(user$! | async); let user">
+    <h3 class="mat-h3" translate>
+      {{user.UserName}} <span translate>Management</span>
+    </h3>
+    <p translate>
+      Manage and change user information
+    </p>
+    <mat-grid-list [cols]="(isHandset | async) ? 1 : 2" rowHeight="200" class="config">
+      <mat-grid-tile rowspan="2">
+        <mat-card style="height:90%; min-width: 90%">
+          <mat-card-header>
+            <mat-card-title translate>
+              Password
+            </mat-card-title>
+            <mat-card-subtitle translate>
+              A secure password helps protect your KFEOCH account
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-action-list>
+              <mat-list-item *ngIf="!inChangingPassword;else password" (click)="inChangingPassword = true">
+                <p matLine>**********</p>
+                <p matLine class="mat-h6" translate>Click to change password</p>
+              </mat-list-item>
+              <ng-template #password>
+                  <mat-form-field>
+                    <mat-label translate>
+                      New Password
+                    </mat-label>
+                    <input matInput [formControl]="passwordControl" type="password">
+                  </mat-form-field>
+              </ng-template>
+            </mat-action-list>
+          </mat-card-content>
+          <mat-card-actions align="end" *ngIf="inChangingPassword">
+            <button mat-raised-button color="primary" [disabled]="passwordControl.invalid || (isChangingPassword | async)">
+              <span translate (click)="changePassword()" translate>Change Password</span></button>
+            <button mat-raised-button (click)="inChangingPassword = false" [disabled]="(isChangingPassword | async)"><span translate>Cancel</span></button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile rowspan="2">
+        <mat-card style="height:90%; min-width: 90%">
+          <mat-card-header>
+            <mat-card-title translate>
+              Roles
+            </mat-card-title>
+            <mat-card-subtitle translate>
+              Assign user to corresponding roles
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-selection-list [(ngModel)]="assignedRoles" (selectionChange)="inChangingRoles = true" >
+              <mat-list-option checkboxPosition="before" *ngFor="let role of roles$ | async" [value]="role.Name" style="font-family: Roboto">
+                {{role.Name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card-content>
+          <mat-card-actions align="end" *ngIf="inChangingRoles">
+            <button mat-raised-button color="primary" [disabled]="isChangingRoles | async" (click)="changeRoles()">
+              <span translate>Save Roles</span>
+            </button>
+            <button mat-raised-button (click)="assignedRoles = user.Roles;inChangingRoles = false" [disabled]="(isChangingRoles | async)"><span translate>Cancel</span></button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card style="height:80%; min-width: 90%">
+          <mat-card-header>
+            <mat-card-title translate>
+              Account Status
+            </mat-card-title>
+            <mat-card-subtitle translate>
+              Change account activation status
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content style="text-align: center;">
+            <!-- <button mat-stroked-button [color]="isActive ? 'primary' : 'warn'" [disableRipple]="true" style="cursor: default;">
+              <span translate *ngIf="isActive">This Account is Active</span>
+              <span translate *ngIf="!isActive">This Account is Inactive</span>
+            </button> -->
+            <mat-slide-toggle [(ngModel)]="isActive" [disabled]="(isDeactivating | async)!" (change)="changeActivation($event.checked)">
+              <span translate *ngIf="isActive">Deactivate Account</span>
+              <span translate *ngIf="!isActive">Activate Account</span>
+            </mat-slide-toggle>
+            <!-- <mat-selection-list [(ngModel)]="assignedRoles" (selectionChange)="inChangingRoles = true" >
+              <mat-list-option checkboxPosition="before" *ngFor="let role of roles$ | async" [value]="role.Name" style="font-family: Roboto">
+                {{role.Name}}
+              </mat-list-option>
+            </mat-selection-list> -->
+          </mat-card-content>
+          <!-- <mat-card-actions align="end" *ngIf="inChangingRoles">
+            <button mat-raised-button color="primary" [disabled]="isChangingRoles | async" (click)="changeRoles()">
+              <span translate>Save Roles</span>
+            </button>
+            <button mat-raised-button (click)="assignedRoles = user.Roles;inChangingRoles = false" [disabled]="(isChangingRoles | async)"><span translate>Cancel</span></button>
+          </mat-card-actions> -->
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-container>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async) || (isChangingRoles | async) || (isChangingPassword | async) || (isDeactivating | async)">
+  <mat-spinner diameter="30"></mat-spinner>
+</div>

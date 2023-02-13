@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { exhaustMap, filter, map, of, switchMap, tap } from 'rxjs';
 import { MemberDocument, OfficeMember } from 'src/app/app-models/office-members';
@@ -23,11 +24,44 @@ export class MemberFormComponent implements OnInit {
   officeMemberId!: number;
   genders = this.dictionaryService.genders;
   gendersLoading = this.dictionaryService.gendersLoading;
-  specialties = this.dictionaryService.ownerSpecialties;
-  specialtiesLoading = this.dictionaryService.ownerSpecialtiesLoading;
+  specialties = this.dictionaryService.memberSpecialties;
+  specialtiesLoading = this.dictionaryService.memberSpecialtiesLoading;
+  positions = this.dictionaryService.memberPositions;
+  positionsLoading = this.dictionaryService.memberPositionsLoading;
   frm!: FormGroup;
   isLoading = this.officeMemberService.isLoading;
   language = this.languageService.currentLanguage;
+  uploadingType$ = this.officeMemberService.uploadingType$;
+  downloadingFile$ = this.officeMemberService.downloadingFile$;
+  defaultNationalityId = 0;
+  nationalities = this.dictionaryService.nationalities.pipe(
+    map(x => {
+      if(this.languageService.currentLanguage === 'ar') {
+        return x.sort((a,b) => {
+          if ( a.NameArabic < b.NameArabic ){
+            return -1;
+          }
+          if ( a.NameArabic > b.NameArabic ){
+            return 1;
+          }
+          return 0;
+        })
+      }
+      else {
+        return x.sort((a,b) => {
+          if ( a.NameEnglish < b.NameEnglish ){
+            return -1;
+          }
+          if ( a.NameEnglish > b.NameEnglish ){
+            return 1;
+          }
+          return 0;
+        })
+      }
+    }),
+    tap(x => this.defaultNationalityId = x.find(z => z.NameEnglish = 'Kuwait')?.Id!)
+  )
+  nationalitiesLoading = this.dictionaryService.nationalitiesLoading;
   constructor(private deviceService: DeviceService,
               private accountService: AccountService,
               private route: ActivatedRoute,
@@ -35,7 +69,8 @@ export class MemberFormComponent implements OnInit {
               private officeMemberService: OfficeMemberService,
               private languageService: LanguageService,
               private confirm: ConfirmService,
-              private router: Router) { }
+              private router: Router,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
@@ -54,9 +89,20 @@ export class MemberFormComponent implements OnInit {
         }
         return of(null)
       }),
+      tap(om => this.officeMember = om!),
+      ///Getting Office Id
+      switchMap(() => this.route.parent?.parent?.parent?.paramMap!),
+      map((param: ParamMap) => {
+        if(param.get('id')) {
+          this.officeId = +param.get('id')!;
+          return this.officeId;
+        }
+        else {
+          return null
+        }
+      }),
       tap(om => {
-        this.officeMember = om!;
-        this.frm = this.officeMemberService.createOfficeMemberForm(this.officeId, om!);
+        this.frm = this.officeMemberService.createOfficeMemberForm(this.officeId, this.officeMember!);
       })
     ).subscribe()
   }
@@ -64,7 +110,7 @@ export class MemberFormComponent implements OnInit {
     if(this.frm.invalid) {
       return;
     }
-    this.confirm.open('Are you sure you want to save updates?').pipe(
+    this.confirm.open({Type: 'update'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         if(this.officeMemberId) {
@@ -75,10 +121,10 @@ export class MemberFormComponent implements OnInit {
     )
     .subscribe(x => {
       if(x && !this.officeMemberId) {
-        this.router.navigateByUrl('/office/members/edit/' + x.Id)
+        this.router.navigate(['edit', x.Id], {relativeTo: this.route.parent})
       }
       else if(x && this.officeMemberId) {
-        this.router.navigateByUrl('/office/members/list')
+        this.router.navigate(['list'], {relativeTo: this.route.parent})
       }
     });
   }
@@ -93,28 +139,48 @@ export class MemberFormComponent implements OnInit {
     formData.append("TypeId",type.Id.toString() );
     this.officeMemberService.uploadFile(formData).subscribe(x => {
       if(x) {
+        type.Files.pop();
         type.Files.push(x);
       }
     });
   }
   getFile(id: number, fileName: string) {
     return this.officeMemberService.getFile(id).subscribe(x => {
+
       let dataType = x.type;
       let binaryData = [];
       binaryData.push(x);
       let downloadLink = document.createElement('a');
       downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-      if (fileName)
+      if (fileName) {
         downloadLink.setAttribute('download', fileName);
         document.body.appendChild(downloadLink);
         downloadLink.click();
+      }
+      // const fileUrl = URL.createObjectURL(x);
+      // window.open(fileUrl, '_blank');
+      // // const safeUrl = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL,
+      // //   this.sanitizer.bypassSecurityTrustResourceUrl(fileUrl))
+      // // const a = document.createElement('a');
+      // // a.target = '_blank';
+      // // a.href = safeUrl!;
+      // // console.log(a);
+      // // a.click();
+    });
+  }
+  openFileInNewWindow(id: number, fileName: string) {
+    return this.officeMemberService.getFile(id).subscribe(x => {
+      if (fileName) {
+        const fileUrl = URL.createObjectURL(x);
+        window.open(fileUrl);
+      }
     });
   }
   reset(){
 
   }
   deleteFile(id: number, fileName: string, documentTypeIndex: number, fileIndex: number) {
-    this.confirm.open('Are you sure you want to delete file: ' + fileName).pipe(
+    this.confirm.open({Type: 'delete', ElementNameArabic: fileName, ElementNameEnglish: fileName}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.officeMemberService.deleteFile(id)

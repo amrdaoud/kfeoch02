@@ -1,4 +1,4 @@
-<div class="office-home-content">
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
   <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
   <h1 class="mat-h1" translate>
     Contact List
@@ -20,12 +20,13 @@
           [options]="(contactTypes | async)!"
           [isLoading]="(contactTypesLoading | async)!"
           [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
-          optionValue="Id"></app-select>
+          optionValue="Id"
+          ></app-select>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="text"></app-input>
+        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Contact Statement' | translate" type="text"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
@@ -57,7 +58,7 @@
           {{(language$ | async) == 'en' ? item.ContactNameEnglish : item.ContactNameArabic}}
         </p>
         <p matLine>
-          @{{item.AddedDate | localeDate}}
+          @{{item.AddedDate | localizedDate}}
         </p>
         <span class="full-spacer"></span>
         <button mat-icon-button type="button" (click)="delete(item.Id, i)"><mat-icon>delete</mat-icon></button>

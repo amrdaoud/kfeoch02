@@ -1,0 +1,128 @@
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav  [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
+    <mat-toolbar>
+      <span translate>Dictionaries</span>
+    </mat-toolbar>
+    <mat-action-list>
+      <button mat-list-item routerLink="office-types" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Office Types</h3>
+          <p mat-line translate>
+            Check and change office types
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-specialities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Office Specialities</h3>
+          <p mat-line translate>
+            Check and change office specialities
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-activities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Office Activities</h3>
+          <p mat-line translate>
+            Check and change office activities
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-entities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Office Entities</h3>
+          <p mat-line translate>
+            Check and change office entities
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-legal-entities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Office Legal Entities</h3>
+          <p mat-line translate>
+            Check and change office legal entities
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-document-types" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Office Documents</h3>
+          <p mat-line translate>
+            Check and change office Documents
+          </p>
+      </button>
+      <button mat-list-item routerLink="contact-types" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Contact Types</h3>
+          <p mat-line translate>
+            Check and change contact types
+          </p>
+      </button>
+      <button mat-list-item routerLink="certificate-entities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Certificate Entities</h3>
+          <p mat-line translate>
+            Check and change certificate entities
+          </p>
+      </button>
+      <button mat-list-item routerLink="request-types" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">category</span>
+          <h3 mat-line mat-h3 translate>Request Types</h3>
+          <p mat-line translate>
+            Check and change request types
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-owner-specialities" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">group</span>
+          <h3 mat-line mat-h3 translate>Member Specialities</h3>
+          <p mat-line translate>
+            Check and change member specialities
+          </p>
+      </button>
+      <button mat-list-item routerLink="office-owner-positions" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">group</span>
+          <h3 mat-line mat-h3 translate>Member Positions</h3>
+          <p mat-line translate>
+            Check and change member positions
+          </p>
+      </button>
+      <button mat-list-item routerLink="owner-document-types" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">group</span>
+          <h3 mat-line mat-h3 translate>Member Documents</h3>
+          <p mat-line translate>
+            Check and change member documents
+          </p>
+      </button>
+      <button mat-list-item routerLink="countries" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">pin_drop</span>
+          <h3 mat-line mat-h3 translate>Countries</h3>
+          <p mat-line translate>
+            Check and change countries
+          </p>
+      </button>
+      <button mat-list-item routerLink="governorates" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">pin_drop</span>
+          <h3 mat-line mat-h3 translate>Governorates</h3>
+          <p mat-line translate>
+            Check and change governorates
+          </p>
+      </button>
+      <button mat-list-item routerLink="areas" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">pin_drop</span>
+          <h3 mat-line mat-h3 translate>Areas</h3>
+          <p mat-line translate>
+            Check and change areas
+          </p>
+      </button>
+      <button mat-list-item routerLink="post-categories" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">newspaper</span>
+          <h3 mat-line mat-h3 translate>Post Categories</h3>
+          <p mat-line translate>
+            Check and change post categories
+          </p>
+      </button>
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

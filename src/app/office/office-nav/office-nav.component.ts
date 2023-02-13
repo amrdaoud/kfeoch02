@@ -16,6 +16,7 @@ export class OfficeNavComponent implements OnInit {
   language$ = this.languageService.currentLanguage$;
   language: string = this.languageService.currentLanguage;
   dir = this.languageService.currentDirection$;
+  isAdmin = this.accountService.inRoles(['UserManager','DictionaryManager', 'ReportManager', 'BillingManager', 'Administrator', 'Manager', 'SiteManager', 'OfficeManager']);
   constructor(private accountService: AccountService,
               private router: Router,
               private confirm: ConfirmService,
@@ -25,7 +26,7 @@ export class OfficeNavComponent implements OnInit {
     this.language$.subscribe(x => this.language = x)
   }
   logOut() {
-    this.confirm.open('Are you sure you want to logout?').pipe(
+    this.confirm.open({Type: 'logout'}).pipe(
       filter(x => x)
     ).subscribe(() => {
       this.accountService.logOut();

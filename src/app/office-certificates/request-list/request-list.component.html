@@ -1,0 +1,21 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <h1 class="mat-h1" translate>
+    Office Certificates
+  </h1>
+  <h3 class="mat-h3" translate>
+    List & view my certificates
+  </h3>
+  <p class="no-margin" translate>
+    Click on a certificate to show information
+  </p>
+  <app-dynamic-data-table
+  [language$]="language$"
+  [data]="certificates"
+  [isLoading]="isLoading"
+  [btn1]="'card_membership'"
+  [btn2]="'receipt_long'"
+  [columnsDef]="columns"
+  (btn1Click)="goToCertificate($event)"
+  (btn2Click)="goToPayment($event)"
+  ></app-dynamic-data-table>
+</div>

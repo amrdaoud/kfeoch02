@@ -10,5 +10,4 @@ export class LocaleDatePipe implements PipeTransform {
     const result = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset())).toLocaleString();
     return result;
   }
-
 }

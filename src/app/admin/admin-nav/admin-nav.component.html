@@ -1,2 +1,59 @@
-<h1>Welcome {{userName}}</h1>
-<button (click)="logout()">Logout</button>
+<mat-sidenav-container class="admin-side-nav" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav mode="side" opened="true">
+    <div class="logo-toolbar">
+      <img src="assets/images/logos/light/logo-not-text.png">
+    </div>
+    <div class="btn-icon" *ngFor="let route of routes" [routerLink]="route.routerLink" [matTooltip]="route.toolTip | translate">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        {{route.icon}}
+      </span></button>
+    </div>
+    <!-- <div class="btn-icon" [routerLink]="'/kfeoch-admin/messages'">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        mail
+      </span></button>
+    </div>
+    <div class="btn-icon" [routerLink]="'/kfeoch-admin/site-content'">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        web
+      </span></button>
+    </div>
+    <div class="btn-icon" [routerLink]="'/kfeoch-admin/dictionaries'">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        format_list_bulleted_add
+      </span></button>
+    </div>
+    <div class="btn-icon" [routerLink]="'/kfeoch-admin/licenses'">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        published_with_changes
+      </span></button>
+    </div>
+    <div class="btn-icon" [routerLink]="'/kfeoch-admin/config/' + configFirstRoute">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        settings
+      </span></button>
+    </div>
+    <div class="btn-icon" [routerLink]="'/kfeoch-admin/reports'">
+      <button mat-icon-button><span class="material-symbols-sharp"  routerLinkActive="admin-navbar-active">
+        table
+      </span></button>
+    </div> -->
+    <div class="btn-icon">
+      <button mat-icon-button [mat-menu-trigger-for]="languageMenu"><span class="material-symbols-outlined" >
+        language
+      </span></button>
+      <mat-menu #languageMenu>
+        <button mat-menu-item (click)="changeLanguage('en')" style="font-family: 'Roboto';">English</button>
+        <button mat-menu-item (click)="changeLanguage('ar')" style="font-family: 'Droid Arabic Kufi';">العربية</button>
+      </mat-menu>
+    </div>
+    <div class="btn-icon">
+      <button mat-icon-button><span class="material-symbols-outlined" (click)="logOut()">
+        logout
+      </span></button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

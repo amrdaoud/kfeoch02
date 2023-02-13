@@ -1,0 +1,35 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <h1 class="mat-h1" translate>
+    Membership Information
+  </h1>
+
+  <div *ngIf="paymentInfo && !(isLoadingPayments | async)" style="margin-top: 40px">
+    <h4 class="mat-h5"><span translate>Membership Status</span>: {{(language$ | async) === 'ar' ? paymentInfo.StatusNameArabic : paymentInfo.StatusNameEnglish}}</h4>
+    <h4 class="mat-h5"><span translate>Membership Expiry Date</span>: {{paymentInfo.CurrentMembershipEndDate ?  (paymentInfo.CurrentMembershipEndDate | localizedDate) : 'First Time'}}</h4>
+    <h4 class="mat-h5"><span translate>Membership Will Extend To</span>: {{paymentInfo.NextMembershipEndDate ?  (paymentInfo.NextMembershipEndDate | localizedDate) : ''}}</h4>
+    <mat-list dense>
+      <mat-list-item *ngFor="let paymentDetail of paymentInfo.Payments">
+        <p matListIcon><mat-icon>payments</mat-icon></p>
+        <p matLine>{{(language$ | async) === 'ar' ? paymentDetail.RequestNameArabic : paymentDetail.RequestNameEnglish}}:</p>
+        <p matLine>{{paymentDetail.Amount | localizedCurrency}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+          <mat-list-item class="mat-h3">
+            <span translate>Total Amount</span>: {{paymentInfo.TotalAmount | localizedCurrency}}
+          </mat-list-item>
+    </mat-list>
+    <mat-grid-list rowHeight="60" cols="1" class="actions-container">
+      <mat-grid-tile>
+        <div class="half-form-field-container">
+          <button mat-raised-button color="primary" (click)="renew()">
+            <mat-icon>refresh</mat-icon><span translate>RENEW</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div style="width:100%; display: flex; flex-direction: column; align-items: center;" *ngIf="isLoadingPayments | async">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span translate>Loading Membership Information..</span>
+  </div>
+</div>

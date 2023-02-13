@@ -1,54 +1,83 @@
 <div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
   <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
   <ng-container *ngIf="!officeMember; else update">
-    <h1 class="mat-h1">
-      New Member
+    <h1 class="mat-h1" translate>
+      New Owner
     </h1>
-
   </ng-container>
   <ng-template #update>
-    <h1 class="mat-h1">
-      Edit Member
+    <h1 class="mat-h1" translate>
+      Edit Owner
     </h1>
   </ng-template>
-  <h3 class="mat-h3">
+  <h3 class="mat-h3" translate>
     Main Information
   </h3>
-  <p>Please fill in all mandatory fields</p>
+  <p translate>Please fill in all mandatory fields</p>
   <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="NameEnglish" [isAsync]="true" [formGroup]="frm" [label]="'English Name' | translate" type="text"></app-input>
+        <app-input controlName="NameEnglish" [formGroup]="frm" [label]="'English Name' | translate" type="text"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="NameArabic" [isAsync]="true" [formGroup]="frm" [label]="'Arabic Name' | translate" type="text"></app-input>
+        <app-input controlName="NameArabic" [formGroup]="frm" [label]="'Arabic Name' | translate" type="text"></app-input>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-input controlName="PhoneNumber" [formGroup]="frm" [label]="'Phone Number' | translate" type="number"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-input controlName="NationalId" [formGroup]="frm" [label]="'National ID' | translate" type="text"></app-input>
+        <app-input controlName="Email" [formGroup]="frm" [label]="'Email Address' | translate" type="text"></app-input>
       </div>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="form-field-container">
-        <app-select
-          controlName="GenderId"
-          [formGroup]="frm"
-          [label]="'Gender' | translate"
-          [placeHolder]="'Select Gender' | translate"
-          [options]="(genders | async)!"
-          [isLoading]="(gendersLoading | async)!"
-          [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
-          optionValue="Id"></app-select>
+        <app-input controlName="PhoneNumberTwo" [formGroup]="frm" [label]="'Secondary Phone Number' | translate" type="number"></app-input>
       </div>
     </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input controlName="NationalId" [formGroup]="frm" [label]="'National ID' | translate" type="number"></app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-select
+            controlName="NationalityId"
+            [formGroup]="frm"
+            [label]="'Nationality' | translate"
+            [placeHolder]="'Select Nationality' | translate"
+            [options]="(nationalities | async)!"
+            [isLoading]="(nationalitiesLoading | async)!"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-select
+            controlName="GenderId"
+            [formGroup]="frm"
+            [label]="'Gender' | translate"
+            [placeHolder]="'Select Gender' | translate"
+            [options]="(genders | async)!"
+            [isLoading]="(gendersLoading | async)!"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+        </div>
+      </mat-grid-tile>
     </mat-grid-list>
-    <h3 class="mat-h3">
+    <h3 class="mat-h3" translate>
       Experience
     </h3>
-    <p>Please fill in all mandatory fields</p>
+    <p translate>Please select owner speciality, SEM and experience years</p>
     <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 3">
     <mat-grid-tile>
       <div class="form-field-container">
@@ -63,6 +92,19 @@
         optionValue="Id"></app-select>
       </div>
     </mat-grid-tile>
+    <!-- <mat-grid-tile>
+      <div class="form-field-container">
+        <app-select
+        controlName="PositionId"
+        [formGroup]="frm"
+        [label]="'Position' | translate"
+        [placeHolder]="'Select Position' | translate"
+        [options]="(positions | async)!"
+        [isLoading]="(positionsLoading | async)!"
+        [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+        optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile> -->
     <mat-grid-tile>
       <div class="form-field-container">
         <app-input controlName="SemId" [formGroup]="frm" [label]="'SEM ID' | translate" type="text"></app-input>
@@ -76,26 +118,38 @@
   </mat-grid-list>
   <div>
     <ng-container *ngIf="officeMemberId">
-      <h3 class="mat-h3">
+      <h3 class="mat-h3" translate>
         Documents
       </h3>
-      <p>Download & Upload Member Documents</p>
+      <p translate>Download & Upload Owner Documents</p>
+      <small translate>
+        Accepted extensions .png,.jpg,.jpeg,.pdf - Max Size: 5MB
+      </small>
       <mat-list class="file-list">
         <ng-container *ngFor="let documentType of officeMember.Documents; let di = index">
           <input id="file-upload" #input [disabled]="(isLoading | async)"
           type="file" name="fileUpload" accept=".png,.jpg,.jpeg,.pdf" (change)="uploadFile($event, documentType); input.value = ''"/>
-        <div mat-subheader>{{documentType.NameEnglish}}
+        <div mat-subheader>{{(language$ | async) === 'ar' ? documentType.NameArabic : documentType.NameEnglish}}
           <span class="full-spacer"></span>
-          <button mat-button color="primary" type="button" (click)="input.click()">
-            <mat-icon>upload</mat-icon> Upload File
+          <button mat-button color="primary" type="button" (click)="input.click()"
+          *ngIf="!(uploadingType$.get(documentType.Id) | async); else uploading">
+            <mat-icon>upload</mat-icon> <span translate>Upload File</span>
           </button>
+          <ng-template #uploading>
+            <mat-progress-spinner [value]="uploadingType$.get(documentType.Id) | async" diameter="30"></mat-progress-spinner>
+          </ng-template>
         </div>
           <mat-list-item *ngFor="let file of documentType.Files; let i = index">
             <!-- <mat-spinner diameter="25" mat-list-icon></mat-spinner> -->
-              <mat-icon mat-list-icon class="material-icons-outlined">description</mat-icon>
-              <div mat-line ><span (click)="getFile(file.Id, file.Name)">{{file.Name}}</span></div>
-              <p mat-line>{{file.AddedDate | localeDate}}</p>
-              <p mat-line><button mat-button color="warn" type="button" (click)="deleteFile(file.Id, file.Name, di, i)">Delete</button></p>
+              <mat-icon mat-list-icon class="material-icons-outlined"
+              *ngIf="!(downloadingFile$.get(file.Id) | async); else downloading">description</mat-icon>
+              <div mat-line ><span (click)="getFile(file.Id, file.Name)">{{(language$ | async) === 'ar' ? documentType.NameArabic : documentType.NameEnglish}}</span></div>
+              <p mat-line>{{file.AddedDate | localizedDate}}</p>
+              <p mat-line><button mat-button color="warn" type="button" (click)="deleteFile(file.Id, file.Name, di, i)">
+                <span translate>Delete</span></button></p>
+              <ng-template #downloading>
+                <mat-progress-spinner mat-list-icon [value]="downloadingFile$.get(file.Id) | async" diameter="30"></mat-progress-spinner>
+              </ng-template>
           </mat-list-item>
           <mat-divider></mat-divider>
         </ng-container>
@@ -105,13 +159,14 @@
       <mat-grid-tile>
         <div class="form-field-container">
           <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async)">
-            <span>Save Changes</span>
+            <span translate>Save Changes</span>
           </button>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="form-field-container">
-          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">Reset</button>
+          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">
+            <span translate>Reset</span></button>
         </div>
       </mat-grid-tile>
     </mat-grid-list>

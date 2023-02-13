@@ -9,7 +9,6 @@ import { ConfirmService } from 'src/app/app-services/confirm.service';
 import { DeviceService } from 'src/app/app-services/device.service';
 import LanguageService from 'src/app/app-services/language.service';
 import { OfficeSpecialtiesService } from 'src/app/app-services/office-specialties.service';
-import { OfficeService } from 'src/app/app-services/office.service';
 
 @Component({
   selector: 'app-specialties',
@@ -34,7 +33,7 @@ export class SpecialtiesComponent implements OnInit {
               private confirm: ConfirmService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
+    this.route.parent?.parent?.paramMap.pipe(
       map((param: ParamMap) => {
         if(param.get('id')) {
           this.officeId = +param.get('id')!;
@@ -65,7 +64,7 @@ export class SpecialtiesComponent implements OnInit {
     if(this.frm.invalid) {
       return;
     }
-    this.confirm.open('Are you sure you want to add specialty?').pipe(
+    this.confirm.open({Type: 'add'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.officeSpecialtiesService.addOfficeSpecialty(this.frm.getRawValue())
@@ -73,11 +72,11 @@ export class SpecialtiesComponent implements OnInit {
     )
     .subscribe(x => {
       this.officeSpecialties.push(x);
-      this.frm.get('SpecialityId')?.setValue('');
+      this.frm.get('SpecialityId')?.reset();
     });
   }
   delete(id: number, i: number) {
-    this.confirm.open('Are you sure you want to delete specialty?').pipe(
+    this.confirm.open({Type: 'delete'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.officeSpecialtiesService.deleteOfficeSpecialty(id)
@@ -89,6 +88,9 @@ export class SpecialtiesComponent implements OnInit {
       }
 
     });
+  }
+  getEligible(): Specialty[] {
+    return this.eligibleSpecialties.filter(x => !this.officeSpecialties.map(y => y.SpecialityId).includes(x.Id));
   }
 
 

@@ -43,7 +43,10 @@ body {
 
   font-size: 14px;
 }
-
+.mat-form-field {
+  font-size: 12px;
+  width: 100%;
+}
 
 @keyframes fly-in-left {
   from {
@@ -137,6 +140,10 @@ body {
     width: 100%;
     margin-bottom: 16.125px;
   }
+  button.mat-stroked-button{
+    width: 100%;
+    margin-bottom: 16.125px;
+  }
   .mat-form-field-appearance-outline .mat-form-field-outline {
     background-color: white;
   }
@@ -151,3 +158,68 @@ body {
   }
 
 }
+
+.name-text {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin-right: 15px;
+  .mat-h4 {
+    line-height: 100%;
+    margin-bottom:10px;
+    font-weight: 500;
+  }
+  .mat-h5 {
+    line-height: 100%;
+    margin:0px;
+    color: rgb(157, 157, 157);
+  }
+}
+.name-circle {
+  width:55px;
+  height:55px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+  font-size: large;
+}
+
+.saving-data {
+  position: fixed;
+  bottom: 10px;
+  left: 20px;
+  right: auto;
+  width: 30px;
+  height: 30px;
+
+}
+button.status {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  right: auto;
+}
+
+.upper-left {
+  position: absolute;
+  right: 10px;
+  top:10px;
+}
+.lg-outer {
+  text-align: right !important;
+}
+@media print {
+  .document {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+}
+// .btn-prev {
+//   right: 0;
+//   }
+//   .btn-next {
+//   left: 0;
+//   }

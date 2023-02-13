@@ -1,0 +1,113 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
+    <h1 class="mat-h1" translate>
+      New License
+    </h1>
+    <h3 translate>
+      License Document
+    </h3>
+    <p class="no-margin" translate>
+      Upload License Document
+    </p>
+    <small translate>
+      Accepted extensions .pdf - Max Size: 5MB
+    </small>
+    <div style="width:100%; display: flex; flex-direction: column; align-items: center;">
+      <div class="document-container">
+        <mat-grid-list rowHeight="80" cols="2">
+          <mat-grid-tile colspan="2" rowspan="2">
+            <div class="license-document">
+              <span class="material-symbols-outlined" *ngIf="file.value; else noFile">
+                description
+              </span>
+              <ng-template #noFile>
+              <span translate>
+                No File
+              </span>
+            </ng-template>
+          </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+              <button mat-button color="primary" type="button" (click)="input.click()" [disabled]="(isLoading | async)">
+                <mat-icon>upload</mat-icon><span translate>Upload File</span>
+              </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <input id="file-upload" #input [disabled]="(isLoading | async)"
+        type="file" name="fileUpload" accept=".pdf" (change)="fileSelected($event)"/>
+      </div>
+    </div>
+    <h3 class="mat-h3" translate>
+      Main Information
+    </h3>
+    <p translate>
+      License Main Information
+    </p>
+    <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input type="date" controlName="StartDate" [formGroup]="frm" [label]="'License Start Date' | translate" [matchLabel]="'License Expiry Date' | translate"></app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input type="date" controlName="EndDate" [formGroup]="frm" [label]="'License Expiry Date' | translate" [matchLabel]="'License Start Date' | translate"></app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+        <app-select
+              controlName="OfficeEntityId"
+              [formGroup]="frm"
+              [label]="'Office Entity' | translate"
+              [placeHolder]="'Select Entity' | translate"
+              [options]="(officeEntities | async)!"
+              [isLoading]="(officeEntitiesLoading | async)!"
+              [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+              optionValue="Id"></app-select>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+        <app-select
+              controlName="Specialities"
+              [formGroup]="frm"
+              [label]="'Office Specialities' | translate"
+              [placeHolder]="'Select Specialities' | translate"
+              [options]="officeSpecialities"
+              [isLoading]="(officeSpecialitiesLoading | async)!"
+              [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+              [isMulty]="true"
+              optionValue="same"></app-select>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="(isHandset | async) ? 1 : 2" rowspan="2">
+        <div class="form-field-container">
+          <mat-form-field>
+            <mat-label translate>Note</mat-label>
+            <textarea matInput formControlName="Note"></textarea>
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list rowHeight="60" cols="2" class="actions-container">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button color="primary" [disabled]="frm.invalid || (isLoading | async) || !file.value">
+            <span translate>Save Changes</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">
+            <span translate>Reset</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
+</div>

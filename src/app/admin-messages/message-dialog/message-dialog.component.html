@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <span translate>Message Number</span>: #{{message.Id}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span translate>on</span> {{message.CreatedDate | localizedDate:'medium'}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <table width=100% cellSpacing="10">
+      <tr>
+        <td class="mat-h3" nowrap translate>Sender</td>
+        <td class="mat-h4">{{message.Name}}</td>
+      </tr>
+      <tr>
+        <td class="mat-h3" nowrap translate>Email Address</td>
+        <td class="mat-h4">{{message.Email}}</td>
+      </tr>
+      <tr>
+        <td class="mat-h3" nowrap translate>Phone Number</td>
+        <td class= "mat-h4">{{message.PhoneNumber}}</td>
+      </tr>
+      <tr>
+        <td class="mat-h3" nowrap translate>Subject</td>
+        <td class= "mat-h4">{{message.Subject}};lasjkd;laskdn;laksjd;lk ;laskjd;l kajsd;lk ja a;lskd ;lkj;lkjas;d ;lkasd;la kjsd;lk jaskld l;kj;lkj asd ans;kl jas;lkjd ;laskjd ;jkas;lkdj ;laksd as</td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" (click)="unreadMEssage()"><mat-icon>mark_email_unread</mat-icon>
+      <span translate> Mark as unread</span>
+    </button>
+    <button mat-button color="primary" mat-dialog-close>
+      <span translate>Close</span>
+    </button>
+  </mat-card-actions>
+</mat-card>

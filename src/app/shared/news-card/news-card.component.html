@@ -6,7 +6,7 @@
     </mat-grid-tile>
     <mat-grid-tile colspan="3">
       <div class="news-text">
-      <div class="news-date">{{newsDate}} | {{newsCategory}}</div>
+      <div class="news-date">{{newsDate | localizedDate}} | {{newsCategory ?? 'General'}}</div>
       </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="3">
@@ -14,13 +14,12 @@
       <div class="news-title">{{newsHeadline}}</div>
       </div>
     </mat-grid-tile>
-    <mat-grid-tile colspan="3" rowspan="5">
-      <div class="news-text">
-        {{(isHandset | async) ? newsText.substring(1,200) : newsText.substring(1,500)}}...
+    <mat-grid-tile colspan="3" rowspan="5" class="flex-start">
+      <div class="news-text" [innerHTML]="(isHandset | async) ? newsText : newsText">
       </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="3">
-        <button mat-button color="primary">
+        <button mat-button color="primary" (click)="onClick()">
           <span translate>Read More..</span>
         </button>
     </mat-grid-tile>

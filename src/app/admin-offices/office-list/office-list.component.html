@@ -1,0 +1,23 @@
+  <div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+    <h1 class="mat-h1" translate>
+      Offices List
+    </h1>
+    <h3 class="mat-h3" translate>
+      List & Filter all registered offices
+    </h3>
+    <p class="no-margin" translate>
+      Click on an office to manage
+    </p>
+  <app-dynamic-data-table (bindingChanged)="changeBinding($event)"
+  [haveExport]="true"
+  [selectFilters]="selectFilters"
+  [showFilters]="!(isHandset | async)"
+  [language$]="language$"
+  [data]="data" [dataSize]="dataSize"
+  [columnsDef]="columnsDef" [isLoading]="isLoading"
+  [havePaging]="true" [activeSort]="'Id'"
+  [isObservableFilter]="true" [clickable]="true"
+  [haveFilter]="true"
+  (rowClicked)="goToOffice($event)"
+  (exportClick)="exportExcel()"></app-dynamic-data-table>
+</div>

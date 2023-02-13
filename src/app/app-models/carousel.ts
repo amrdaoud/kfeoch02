@@ -4,4 +4,5 @@ export interface CarouselItem {
   Title?: string;
   SubTitle?: string;
   btnText: string;
+  routerLink?: string
 }

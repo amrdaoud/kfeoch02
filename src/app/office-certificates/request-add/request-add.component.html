@@ -1,0 +1,58 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
+    <h1 class="mat-h1" translate>
+      New Document Request
+    </h1>
+    <h3 translate>
+      Add Your Request Fields
+    </h3>
+    <p class="no-margin" translate>
+      Please fill in all mandatory fields
+    </p>
+  <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-select
+              controlName="RequestTypeId"
+              [formGroup]="frm"
+              [label]="'Request Type' | translate"
+              [placeHolder]="'Select Request Type' | translate"
+              [options]="(requestTypes | async)!"
+              [isLoading]="(requestTypesLoading | async)!"
+              [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+              optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <app-select
+              controlName="CertificateEntityId"
+              [formGroup]="frm"
+              [label]="'Certificate Entity' | translate"
+              [placeHolder]="'Select Certificate Entity' | translate"
+              [options]="(certificateEntities | async)!"
+              [isLoading]="(certificateEntitiesLoading | async)!"
+              [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+              optionValue="Id"></app-select>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list rowHeight="60" cols="2" class="actions-container">
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <button mat-raised-button color="primary" [disabled]="frm.invalid">
+          <span translate>Initiate </span>
+          <span>({{price | localizedCurrency}})</span>
+        </button>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-field-container">
+        <button mat-raised-button type="button" (click)="reset()">
+          <span translate>Reset</span>
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+</div>

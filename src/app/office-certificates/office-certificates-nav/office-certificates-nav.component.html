@@ -1,0 +1,38 @@
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
+    <mat-toolbar>
+      <span translate>Office Certificates</span>
+    </mat-toolbar>
+    <mat-action-list>
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="list" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">card_membership</span>
+          <h3 mat-line mat-h3 translate>List Of Certificates</h3>
+          <p mat-line translate>
+            List & view my certificates
+          </p>
+      </button>
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="membership" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">bookmark</span>
+          <h3 mat-line mat-h3 translate>Membership Certificate</h3>
+          <p mat-line translate>
+            Request a new membership certificate
+          </p>
+      </button>
+      <button mat-list-item routerLinkActive="office-home-active" routerLink="information-update" (click)="drawer.mode === 'over' && drawer.close()">
+        <span mat-list-icon class="material-symbols-outlined">info</span>
+          <h3 mat-line mat-h3 translate>Information Update Certificate</h3>
+          <p mat-line translate>
+            Request a new information update certificate
+          </p>
+      </button>
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
+    <router-outlet>
+    </router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

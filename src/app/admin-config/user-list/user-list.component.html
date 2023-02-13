@@ -1,0 +1,19 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''" >
+  <h1 class="mat-h1" translate>
+    User Manager
+  </h1>
+  <h3 class="mat-h3" translate>
+    List of all users
+  </h3>
+  <p translate>
+    Click on a user to show manage details
+  </p>
+  <app-dynamic-data-table
+    [data]="data"
+    [language$]="language$"
+    [isLoading]="isLoading"
+    [columnsDef]="(isHandset | async) ? columns.handset : columns.nonHandset"
+    (rowClicked)="goToUser($event)"
+    [clickable]="true"
+  ></app-dynamic-data-table>
+  </div>

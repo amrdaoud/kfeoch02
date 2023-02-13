@@ -11,14 +11,14 @@
     class="dot" [ngClass]="{'active': selectedIndex === i}"
     (click)="selectedIndex = i"></span>
   </div>
-  <div *ngIf="controls" class="btn-carousel btn-prev">
+  <div *ngIf="controls" class="btn-carousel" [ngClass]="language === 'en' ? 'btn-prev' : 'btn-next'">
     <button mat-mini-fab class="icon-carousel" (click)="language === 'en' ? goBack() : goNext()">
       <mat-icon inline>
         arrow_back
       </mat-icon>
     </button>
   </div>
-  <div *ngIf="controls" class="btn-carousel btn-next" >
+  <div *ngIf="controls" class="btn-carousel" [ngClass]="language === 'en' ? 'btn-next' : 'btn-prev'">
     <button mat-mini-fab class="icon-carousel" (click)="language === 'en' ? goNext() : goBack()">
       <mat-icon inline>
         arrow_forward
@@ -36,7 +36,7 @@
         {{item.SubTitle}}
       </p>
       <p>
-        <button mat-raised-button color="accent">{{item.btnText}}</button>
+        <button mat-raised-button color="accent" [routerLink]="item.routerLink">{{item.btnText}}</button>
       </p>
 
   </div>

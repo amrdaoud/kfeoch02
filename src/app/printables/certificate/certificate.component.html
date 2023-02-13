@@ -1,0 +1,16 @@
+<div class="document-parent">
+  <div class='btn-print' *ngIf="!((isLoading | async) || !html)">
+    <button mat-fab  (click)="print()" ><mat-icon>print</mat-icon></button>
+    <strong translate>Make sure to print on A4 document</strong>
+  </div>
+  <div class="document" #sectiontoprint>
+    <qr-code *ngIf="hasQr" class="qr-code" [value]="location" size="160" errorCorrectionLevel="M"></qr-code>
+    <img src="assets/stationary/stationary.png">
+    <div [innerHTML]="html | safeHtml" style="padding-top: 3.5cm; direction: rtl;" class="document-text"></div>
+
+  </div>
+  <div class="saving-data" *ngIf="(isLoading | async)">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
+  </div>
+

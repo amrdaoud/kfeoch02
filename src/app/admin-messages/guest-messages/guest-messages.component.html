@@ -1,0 +1,24 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <h1 class="mat-h1" translate>
+    Guest Messages
+  </h1>
+  <h3 class="mat-h3" translate>
+    List & Filter all guest messages
+  </h3>
+  <p class="no-margin" translate>
+    Click on an message to read
+  </p>
+  <app-dynamic-data-table (bindingChanged)="changeBinding($event)"
+  [data]="data"
+  [language$]="language$"
+  [dataSize]="dataSize"
+  [columnsDef]="columnsDef"
+  [isLoading]="isLoading"
+  [havePaging]="true"
+  [activeSort]="'CreatedDate'"
+  [activeDirection]="'desc'"
+  [isObservableFilter]="true"
+  [clickable]="true"
+  [haveFilter]="true"
+  (rowClicked)="goToMessage($event)"></app-dynamic-data-table>
+</div>

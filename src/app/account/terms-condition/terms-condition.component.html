@@ -1,0 +1,15 @@
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{(language$ | async) === 'ar' ? (page).TitleArabic : page.TitleEnglish}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{(language$ | async) === 'ar' ? (page).SubtitleArabic : page.SubtitleEnglish}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="page-body page-with-padding" [innerHTML]="((language$ | async) === 'ar' ? page.BodyArabic : page.BodyEnglish) | safeHtml"></div>
+    </mat-card-content>
+  </mat-card>
+

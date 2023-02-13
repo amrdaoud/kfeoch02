@@ -35,7 +35,7 @@
         <app-input [formGroup]="frm" controlName="Password" [label]="'Password' | translate" type="password"></app-input>
       </div>
       <div class="align-items-center">
-        <button mat-button type="button"><span translate>Forget you password?</span></button>
+        <button mat-button type="button" routerLink="/account/forget-password"><span translate>Forget you password?</span></button>
       </div>
       <div class="align-items-center">
         <button mat-raised-button color="primary" style="width:90%" [disabled]="frm.invalid">

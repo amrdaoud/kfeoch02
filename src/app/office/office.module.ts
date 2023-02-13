@@ -28,6 +28,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { OfficeSecurityComponent } from './office-security/office-security.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedFormControlsModule } from '../shared-form-controls/shared-form-controls.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatInputModule,
     SharedModule,
+    SharedFormControlsModule,
     ReactiveFormsModule,
     MatGridListModule,
     MatDatepickerModule,
@@ -60,7 +63,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatCardModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ]
 })
 export class OfficeModule { }

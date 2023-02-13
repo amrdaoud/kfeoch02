@@ -1,0 +1,111 @@
+<div class="data-table-container data-table">
+    <mat-grid-list rowHeight="70" [cols]="selectFiltersCols" *ngIf="showFilters && selectFilters && selectFilters.length > 0" class="filter-container">
+      <form [formGroup]="frm">
+      <mat-grid-tile *ngFor="let selectFilter of selectFilters">
+        <ng-container [ngSwitch]="selectFilter.type">
+          <mat-form-field *ngSwitchCase="'date'">
+            <mat-label>{{(language$ | async) === 'ar' ? selectFilter.labelArabic : selectFilter.label}}</mat-label>
+            <input matInput [matDatepicker]="picker" [formControlName]="selectFilter.controlName">
+            <mat-hint>M/D/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field *ngSwitchCase="'select'">
+            <mat-label>{{(language$ | async) === 'ar' ? selectFilter.labelArabic : selectFilter.label}}</mat-label>
+            <mat-select [formControlName]="selectFilter.controlName" [multiple]="selectFilter.isMulti">
+              <mat-option *ngFor="let option of selectFilter.values | async" [value]="option[selectFilter.propertyValue!]">
+                {{(language$ | async) === 'ar' ? option[selectFilter.displayValueArabic!] : option[selectFilter.displayValue!]}}
+              </mat-option>
+            </mat-select>
+            <mat-spinner matSuffix color="primary" diameter=20 *ngIf="selectFilter.isLoading | async"></mat-spinner>
+          </mat-form-field>
+          <mat-form-field *ngSwitchDefault>
+            <mat-label>{{(language$ | async) === 'ar' ? selectFilter.labelArabic : selectFilter.label}}</mat-label>
+            <mat-select [formControlName]="selectFilter.controlName" [multiple]="selectFilter.isMulti">
+              <mat-option *ngFor="let option of selectFilter.values | async" [value]="option[selectFilter.propertyValue!]">
+                {{(language$ | async) === 'ar' ? option[selectFilter.displayValueArabic!] : option[selectFilter.displayValue!]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </mat-grid-tile>
+    </form>
+    <mat-grid-tile *ngIf="haveFilter">
+      <mat-form-field>
+        <mat-label translate>
+          Search
+        </mat-label>
+        <input matInput [formControl]="filterControl">
+        <mat-icon matSuffix color="primary">search</mat-icon>
+      </mat-form-field>
+    </mat-grid-tile>
+    </mat-grid-list>
+  <div *ngIf="!showFilters && haveFilter" class="search-container">
+    <mat-form-field>
+      <mat-label translate>
+        Search
+      </mat-label>
+      <input matInput [formControl]="filterControl">
+      <mat-icon matSuffix color="primary">search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class='btn-excel' *ngIf="haveExport">
+    <button mat-raised-button (click)="exportClicked()" [disabled]="(isLoading | async)">
+      <mat-icon>get_app</mat-icon><span translate>Export all pages to Excel</span>
+    </button>
+  </div>
+  <div class="buffer-container">
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="(isLoading | async)"></mat-progress-bar>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <!-- <button mat-raised-button color="primary" class="float-bottom-right"><mat-icon>download</mat-icon></button> -->
+      <table width=100% height=100% mat-table [dataSource]="dataSource"
+        [matSortActive]="activeSort" [matSortDisableClear] ="activeSort" [matSortDirection]="activeDirection"
+       matSort>
+        <ng-container *ngFor="let columnDef of columnsDef" [matColumnDef]="columnDef.SubProperty ? columnDef.Property + columnDef.SubProperty : columnDef.Property">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!columnDef.IsSort" [style]="padding ? {'padding': padding} : ''"> {{(language$ | async) ==='ar' && columnDef.NameArabic ? columnDef.NameArabic : columnDef.Name}} </th>
+          <td mat-cell *matCellDef="let element" [style]="borders ? {'borders': '1px solid'} : ''"
+          [matTooltip]="columnDef.IsTooltip ? element[columnDef.Property] : ''">
+            <span  [ngStyle]="{'color': columnDef.ColorProperty ? element[columnDef.ColorProperty] : ''}">
+              <mat-icon *ngIf="columnDef.Icon" class="material-icons-filled">{{columnDef.Icon}}</mat-icon>
+              <mat-icon *ngIf="columnDef.IconTrue && element[columnDef.Property]" class="material-icons-filled force-ltr">{{columnDef.IconTrue}}</mat-icon>
+              <mat-icon *ngIf="columnDef.IconFalse && !element[columnDef.Property]" class="material-icons-filled force-ltr">{{columnDef.IconFalse}}</mat-icon>
+              <mat-icon
+              *ngIf="columnDef.IconChangers && columnDef.IconChangerProperties &&columnDef.ColorChangers
+              && columnDef.IconChangers.length === 4
+              && columnDef.IconChangerProperties.length === 4 && columnDef.ColorChangers.length === 4"
+              class="material-icons-filled force-ltr"
+              [ngStyle]="{'color': element[columnDef.IconChangerProperties[0]] ? columnDef.ColorChangers[0] : element[columnDef.IconChangerProperties[1]] ? columnDef.ColorChangers[1] : element[columnDef.IconChangerProperties[2]] ? columnDef.ColorChangers[2] : element[columnDef.IconChangerProperties[3]] ? columnDef.ColorChangers[3] : ''}">
+                {{element[columnDef.IconChangerProperties[0]] ? columnDef.IconChangers[0] : element[columnDef.IconChangerProperties[1]] ? columnDef.IconChangers[1] : element[columnDef.IconChangerProperties[2]] ? columnDef.IconChangers[2] : element[columnDef.IconChangerProperties[3]] ? columnDef.IconChangers[3] : ''}}
+              </mat-icon>
+              <span *ngIf="!columnDef.HideData && !columnDef.SubProperty">{{(language$ | async) ==='ar' && columnDef.PropertyArabic ? element[columnDef.PropertyArabic] : element[columnDef.Property] | dynamic:columnDef.Pipe:columnDef.PipeArgs | dynamic:columnDef.Pipe2:columnDef.PipeArgs2}}</span>
+              <span *ngIf="!columnDef.HideData && columnDef.SubProperty">{{element[columnDef.Property][columnDef.SubProperty] | dynamic:columnDef.Pipe:columnDef.PipeArgs | dynamic:columnDef.Pipe2:columnDef.PipeArgs2}}</span>
+            </span>
+          </td>
+        </ng-container >
+        <ng-container *ngIf="btn1 || btn2" matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>
+          </th>
+          <td *matCellDef="let element">
+            <button mat-icon-button *ngIf="btn1" (click)="btn1Clicked(element)" color="primary"><mat-icon>{{btn1}}</mat-icon></button>
+            <button mat-icon-button *ngIf="btn2" (click)="btn2Clicked(element)" color="primary"><mat-icon>{{btn2}}</mat-icon></button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;" [ngClass]="clickable ? 'clickable-row' : ''" (click)="rowClick(row)"></tr>
+        <ng-container *matNoDataRow >
+          <tr class="mat-mdc-row"  *ngIf="dataSource.data.length === 0">
+            <td class="mat-mdc-cell" [attr.colspan]="columns.length">
+              <span *ngIf="(isLoading | async); else noData" translate>Loading...</span>
+              <ng-template #noData><span translate>No items found</span></ng-template>
+            </td>
+          </tr>
+      </ng-container>
+      </table>
+    </div>
+
+      <mat-paginator
+      class="paginator-container"
+      *ngIf="havePaging" [length]="dataSize | async" [pageSizeOptions]="[20, 50, 100]"></mat-paginator>
+  </div>
+

@@ -1,0 +1,136 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <form [formGroup]="frm" *ngIf="frm" (ngSubmit)="save()">
+    <h1 class="mat-h1" *ngIf="!post; else edit" translate>
+      Create New Post
+    </h1>
+    <ng-template #edit>
+      <h1 class="mat-h1" translate>
+        #{{post.Id}}
+      </h1>
+      <h3 class="mat-h3" translate>
+        Edit Post
+      </h3>
+    </ng-template>
+    <p translate>
+      Please fill in all mandatory fields
+    </p>
+    <mat-grid-list rowHeight="75" [cols]="(isHandset | async) ? 1 : 2">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input controlName="TitleEnglish" [formGroup]="frm" [label]="'English Title' | translate" type="text">
+          </app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input controlName="TitleArabic" [formGroup]="frm" [label]="'Arabic Title' | translate" type="text">
+          </app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input controlName="SubtitleEnglish" [formGroup]="frm" [label]="'English Subtitle' | translate" type="text">
+          </app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input controlName="SubtitleArabic" [formGroup]="frm" [label]="'Arabic Subtitle' | translate" type="text">
+          </app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-select
+            controlName="CategoryId"
+            [haveNull]="true"
+            [formGroup]="frm"
+            [label]="'Category' | translate"
+            [placeHolder]="'Select Category' | translate"
+            [options]="(categories | async)!"
+            [isLoading]="(categoriesLoading | async)!"
+            [optionDisplay]="(language$ | async) === 'ar' ? 'NameArabic' : 'NameEnglish'"
+            optionValue="Id"></app-select>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <app-input controlName="PublishDate" [formGroup]="frm" [label]="'Publish Date' | translate" type="date">
+          </app-input>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <mat-checkbox formControlName="IsPublished"><span translate>Publish</span></mat-checkbox>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile rowspan="5" [colspan]="(isHandset | async) ? 1 : 2">
+        <div class="site-image-selector">
+          <mat-grid-list rowHeight="80" cols="2">
+            <mat-grid-tile colspan="2" rowspan="4">
+              <img *ngIf="imgSrc; else defaultImage" [src]="imgSrc" onerror="this.onerror=null; this.src='assets/defaults/no-image.jpg';">
+              <ng-template #defaultImage>
+                <img class="product-home-logo" src="assets/defaults/no-image.jpg">
+              </ng-template>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+              <button mat-button color="primary" type="button" (click)="image.click()" [disabled]="(isLoading | async)"><span translate>Change</span></button>
+          </mat-grid-tile>
+          </mat-grid-list>
+          <input id="file-upload" #image
+          type="file" name="fileUpload" accept=".png,.jpg,.jpeg" (change)="previewImage($event)"/>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-tab-group mat-stretch-tabs>
+      <mat-tab [label]="'English Content' | translate">
+          <div class="NgxEditor-Wrapper">
+            <ngx-editor-menu [editor]="englishEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+            <ngx-editor
+              [editor]="englishEditor"
+              formControlName="BodyEnglish"
+              [placeholder]="'English Content' | translate"
+            ></ngx-editor>
+          </div>
+      </mat-tab>
+      <mat-tab [label]="'Arabic Content'  | translate">
+        <div class="NgxEditor-Wrapper">
+          <ngx-editor-menu [editor]="arabicEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor
+            [editor]="arabicEditor"
+            formControlName="BodyArabic"
+            [placeholder]="'Arabic Content' | translate"
+          ></ngx-editor>
+        </div>
+    </mat-tab>
+    </mat-tab-group>
+    <mat-grid-list rowHeight="60" cols="2" class="actions-container">
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button color="accent" [disabled]="frm.invalid || (isLoading | async)">
+            <span translate>Save Changes</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="form-field-container">
+          <button mat-raised-button type="button" (click)="reset()" [disabled]="(isLoading | async)">
+            <span translate>Reset</span>
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div class="saving-data" *ngIf="(isLoading | async)">
+  <mat-spinner diameter="30"></mat-spinner>
+</div>
+<!-- <div class="NgxEditor__Wrapper">
+  <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+  <ngx-editor
+    [editor]="editor"
+    [ngModel]="html"
+    [disabled]="false"
+    [placeholder]="'Type here...'"
+  ></ngx-editor>
+</div> -->

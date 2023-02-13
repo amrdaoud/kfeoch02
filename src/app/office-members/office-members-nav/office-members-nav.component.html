@@ -1,14 +1,14 @@
-<mat-sidenav-container class="office-side-nav2">
-  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer [ngClass]="isTest ? 'hide' : ''">
+<mat-sidenav-container class="office-side-nav2" [dir]="(dir | async) === 'ltr' ? 'ltr' : 'rtl'">
+  <mat-sidenav [opened]="(isHandset | async) ? 'false' : true" [mode]="(isHandset | async) ? 'over' : 'side'" #drawer>
     <mat-toolbar>
-      <span translate>Office Members</span>
+      <span translate>Office Owners</span>
     </mat-toolbar>
     <mat-action-list>
       <button mat-list-item routerLinkActive="office-home-active" routerLink="list" (click)="drawer.mode === 'over' && drawer.close()">
         <span mat-list-icon class="material-symbols-outlined">recent_Actors</span>
-          <h3 mat-line mat-h3 translate>My Members</h3>
+          <h3 mat-line mat-h3 translate>List Of Owners</h3>
           <p mat-line translate>
-            List & update my office's members
+            List & update my office's owners
           </p>
       </button>
       <!-- <button mat-list-item routerLink="owners" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
@@ -20,7 +20,7 @@
       </button> -->
       <button mat-list-item routerLink="new" routerLinkActive="office-home-active" (click)="drawer.mode === 'over' && drawer.close()">
         <span mat-list-icon class="material-symbols-outlined">add</span>
-          <h3 mat-line mat-h3 translate>Add new member</h3>
+          <h3 mat-line mat-h3 translate>Add new office owner</h3>
           <!-- <p mat-line translate>
 
           </p> -->
@@ -42,7 +42,10 @@
     </mat-action-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button mat-icon-button class="upper-left" (click)="drawer.toggle()" *ngIf="(isHandset | async)"><mat-icon>menu</mat-icon></button>
+    <button mat-icon-button class="float-drawer-toggle" color="primary"  (click)="drawer.toggle()">
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="!drawer.opened">chevron_right</mat-icon>
+    </button>
     <router-outlet>
     </router-outlet>
   </mat-sidenav-content>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { exhaustMap, filter, map, switchMap, tap } from 'rxjs';
+import { exhaustMap, filter, map, of, switchMap, tap } from 'rxjs';
+import { Area } from 'src/app/app-models/dictionary';
 import { Office } from 'src/app/app-models/office';
 import { AccountService } from 'src/app/app-services/account.service';
 import { ConfirmService } from 'src/app/app-services/confirm.service';
@@ -32,7 +33,8 @@ export class OfficeInformationComponent implements OnInit {
   countriesLoading = this.dictionaryService.countriesLoading;
   governorates = this.dictionaryService.governorates;
   governoratesLoading = this.dictionaryService.governoratesLoading;
-  areas = this.dictionaryService.areas;
+  areas: Area[] = [];
+  //areas = this.dictionaryService.areas;
   areasLoading = this.dictionaryService.areasLoading;
   isLoading = this.officeService.isLoading;
   officeId = this.accountService.getOfficeId();
@@ -47,7 +49,7 @@ export class OfficeInformationComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
+    this.route.parent?.parent?.paramMap.pipe(
       map((param: ParamMap) => {
         if(param.get('id')) {
           this.officeId = +param.get('id')!;
@@ -63,24 +65,41 @@ export class OfficeInformationComponent implements OnInit {
       tap(o => {
         this.office = o;
         this.frm = this.officeService.createOfficeForm(o);
+      }),
+      switchMap(o => {
+        if(o.GovernorateId) {
+          return this.dictionaryService.httpGetAreasByGovernorate(o.GovernorateId)
+        }
+        return of(new Array<Area>());
       })
-    ).subscribe()
+    ).subscribe(
+      x => this.areas = x
+    )
+  }
+  get agreeToTerms(): FormControl {
+    return this.frm.get('AgreeToTerms') as FormControl;
+  }
+  getAreas(governerateId: number) {
+    this.frm.get('AreaId')?.setValue(null);
+    this.dictionaryService.httpGetAreasByGovernorate(governerateId).subscribe(x => {
+      this.areas = x;
+    })
   }
 
   save() {
     if(this.frm.invalid) {
       return;
     }
-    this.confirm.open('Are you sure you want to save updates?').pipe(
+    this.confirm.open({Type: 'update'}).pipe(
       filter(x => x),
       exhaustMap(() => {
-        return this.officeService.updateOffice(this.frm.get('Id')?.value,this.frm.getRawValue())
+        return this.officeService.updateOffice(this.frm.get('Id')?.value,this.frm.value)
       })
     )
     .subscribe(x => this.office = x);
   }
   reset() {
-    this.confirm.open('Are you sure you want to reset changes?').pipe(
+    this.confirm.open({Type: 'reset'}).pipe(
       filter(x => x)
     ).subscribe(() => {
       this.frm.patchValue(this.office);
@@ -95,10 +114,13 @@ export class OfficeInformationComponent implements OnInit {
     const formData = new FormData();
     formData.append("File", selectedFile);
     formData.append("FileName", this.officeId? this.officeId.toString() : '');
-    this.officeService.uploadLogo(formData).subscribe(x => this.office.LogoUrl = x.LogoUrl + '?r=' + Date.now());
+    this.officeService.uploadLogo(formData)
+    .subscribe(x => {
+      this.office.LogoUrl = x.LogoUrl + '?r=' + Date.now()
+    });
   }
   deleteLogo() {
-    this.confirm.open('Are you sure you want to remove logo?').pipe(
+    this.confirm.open({Type: 'delete'}).pipe(
       filter(x => x),
       exhaustMap(() => {
         return this.officeService.deleteLogo(this.office.Id);

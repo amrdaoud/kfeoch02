@@ -1,0 +1,47 @@
+<div class="office-home-content" [ngClass]="(isHandset | async) ? 'office-home-content-handset' : ''">
+  <h1 class="mat-h1" translate>
+    Main Reports
+  </h1>
+  <h3 class="mat-h3" translate>
+    Export main reports
+  </h3>
+  <p class="no-margin" translate>
+    Click on report to download
+  </p>
+  <mat-action-list>
+    <button mat-list-item (click)="getOffices()" [disabled]="isLoadingOffices$ | async">
+      <mat-icon mat-list-icon>apartment</mat-icon>
+      <span translate>Export all Offices Main Data</span>
+      <span class="full-spacer"></span>
+      <mat-spinner diameter="30" *ngIf="(isLoadingOffices$ | async)"></mat-spinner>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item (click)="getOwners()" [disabled]="isLoadingOwners$ | async">
+      <mat-icon mat-list-icon>group</mat-icon>
+      <span translate>Export all Offices Owners</span>
+      <span class="full-spacer"></span>
+      <mat-spinner diameter="30" *ngIf="(isLoadingOwners$ | async)"></mat-spinner>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item (click)="getSpecialities()" [disabled]="isLoadingSpecialities$ | async">
+      <mat-icon mat-list-icon>card_membership</mat-icon>
+      <span translate>Export all Office Specialities</span>
+      <span class="full-spacer"></span>
+      <mat-spinner diameter="30" *ngIf="(isLoadingSpecialities$ | async)"></mat-spinner>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item (click)="getContacts()" [disabled]="isLoadingContacts$ | async">
+      <mat-icon mat-list-icon>phone</mat-icon>
+      <span translate>Export all Offices Contats</span>
+      <span class="full-spacer"></span>
+      <mat-spinner diameter="30" *ngIf="(isLoadingContacts$ | async)"></mat-spinner>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-list-item (click)="getLicenses()" [disabled]="isLoadingLicenses$ | async">
+      <mat-icon mat-list-icon>published_with_changes</mat-icon>
+      <span translate>Export all Offices Licenses</span>
+      <span class="full-spacer"></span>
+      <mat-spinner diameter="30" *ngIf="(isLoadingLicenses$ | async)"></mat-spinner>
+    </button>
+  </mat-action-list>
+  </div>
