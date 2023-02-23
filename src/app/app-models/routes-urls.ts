@@ -13,6 +13,7 @@ export interface mainRouteConfig {
 }
 export const admin: mainRouteConfig[] = [
   {icon: 'apartment', routerLink: '/kfeoch-admin/offices/', toolTip: 'Office Management', roles: ['Administrator', 'BillingManager', 'OfficeManager']},
+  {icon: 'web', routerLink: '/kfeoch-admin/site-content/', toolTip: 'Site Contents', roles: ['Administrator', 'SiteManager']},
   {icon: 'mail', routerLink: '/kfeoch-admin/messages', toolTip: 'Received Messages', roles: ['Administrator', 'SiteManager']},
   {icon: 'format_list_bulleted_add', routerLink: '/kfeoch-admin/dictionaries', toolTip: 'Dictionaries Management', roles: ['Administrator', 'DictionaryManager']},
   {icon: 'published_with_changes', routerLink: '/kfeoch-admin/licenses', toolTip: 'Offices Certificates', roles: ['Administrator', 'OfficeManager']},
